@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2015",
+    "declaration": true,
+    "declarationDir": "dist",
+    "strict": true,
+    "lib": [
+      "ES2020",
+      "DOM"
+    ]
+  },
+  "files": ["src/index.ts"]
+}
