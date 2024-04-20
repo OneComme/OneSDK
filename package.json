@@ -9,7 +9,10 @@
     "build": "webpack --mode=production --node-env=production",
     "test": "jest",
     "test:watch": "jest --watch",
-    "doc": "typedoc --options ./typedoc.config.js"
+    "doc": "typedoc --options ./typedoc.config.js",
+    "prebuild": "npm test",
+    "prepublish": "npm test",
+    "preversion": "npm test"
   },
   "keywords": [
     "わんコメ",
