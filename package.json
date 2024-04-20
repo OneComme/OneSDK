@@ -22,12 +22,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:OneComme/OneCommeJavaScriptSDK.git"
+    "url": "git@github.com:OneComme/OneSDK.git"
   },
   "bugs": {
-    "url": "https://github.com/OneComme/OneCommeJavaScriptSDK/issues"
+    "url": "https://github.com/OneComme/OneSDK/issues"
   },
-  "homepage": "https://github.com/OneComme/OneCommeJavaScriptSDK",
+  "homepage": "https://onecomme.com",
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.9",
     "@types/jest": "^29.5.12",
