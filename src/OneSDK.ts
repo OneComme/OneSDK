@@ -140,7 +140,7 @@ export class OneSDK {
     }
     this._tickTimerId = window.setTimeout(this._tick, 100)
   }
-  subscribe(subscriber: Subscriber) {
+  subscribe<T extends Subscriber<SendType>>(subscriber: T) {
     ++this._subscriberId
     this._subscribers.set(this._subscriberId, subscriber)
     return this._subscriberId
