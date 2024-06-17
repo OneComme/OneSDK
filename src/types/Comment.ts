@@ -40,6 +40,7 @@ export interface BaseCommentMeta {
   tc?: number
   lc?: number
   interval?: number
+  free?: boolean
 }
 export interface BaseComment {
   id: string
@@ -148,12 +149,14 @@ export interface CommentSenderOption {
 export interface Listener {
   id: string
   name: string
+  screenName?: string
   profileImage: string
   firstCommentTime: string
   lastCommentTime: string
   badges: BaseBadge[]
   count: number
   giftCount: number
+  anonymity: boolean
 }
 export interface ListenerInfo {
   id: string

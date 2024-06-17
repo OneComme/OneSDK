@@ -25,3 +25,21 @@ export interface OrderHistory {
   created_at: string
   updated_at: string
 }
+interface SharedOrderStats {
+  count: number
+  canceled: number
+  completed: number
+  uniqueUser: number
+  completedlUniqueUser: number
+}
+export interface UserOrderStats extends Pick<OrderItem, 'id' | 'username'> {
+  count: number
+  canceled: number
+  completed: number
+}
+export interface OrderStats extends SharedOrderStats {
+  users: UserOrderStats[]
+}
+export interface InternalOrderStats extends SharedOrderStats {
+  users: Map<string, UserOrderStats>
+}

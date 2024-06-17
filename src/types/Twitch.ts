@@ -5,7 +5,8 @@ import { Colors } from './Comment';
 
 export module Twitch {
   export interface RootResponse {
-      '@badge-info': string;
+      'badge-info': string;
+      'animation-id': string;
       badges: string;
       bits?: string;
       color: string;
@@ -180,6 +181,10 @@ export module Twitch {
     redemptions_redeemed_current_stream: any
     cooldown_expires_at: string
     user_input?: string
+    reward_type?: string
+    bits_cost?: number
+    default_bits_cost?: number
+    pricing_type?: string
   }
   export interface Redemption {
     id: string
@@ -187,7 +192,7 @@ export module Twitch {
     channel_id: string
     redeemed_at: string
     reward: Reward
-    user_input: string
+    user_input?: string
     status: string
     cursor: string
   }
@@ -309,6 +314,10 @@ export module Twitch {
   export interface CheerEmotesResponse {
     data: Cheers[]
   }
+  export interface StayCommentData {
+    comment: Twitch.CommentResponse
+    redemption: Twitch.Redemption
+  }
   export interface CommentResponse extends BaseResponse {
 		bits?: string
     price?: number
@@ -317,6 +326,7 @@ export module Twitch {
     colors?: Colors
     turbo?: string;
     flags?: string;
+    animationId?: string
     mod?: string;
     subscriber?: "0" | "1";
     isModerator: boolean

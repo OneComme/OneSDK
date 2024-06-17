@@ -1,4 +1,5 @@
 import { Comment } from './Comment'
+import { ServiceList } from './Service'
 
 export interface CommentLogFile {
   path: string
@@ -10,10 +11,24 @@ export interface CommentLogFile {
 export interface CommentUser {
   id: string
   name: string
+  nickname?: string
+  displayName: string
   count: number
   profileImage: string
-  service: string
+  service: keyof ServiceList
   serviceName: string
+  anonymity: boolean
+}
+export interface GiftUser {
+  id: string
+  name: string
+  displayName: string
+  nickname?: string
+  profileImage: string
+  service: keyof ServiceList
+  serviceName: string
+  comments: Comment[]
+  anonymity: boolean
 }
 export interface TimeSection {
   timestamp: number

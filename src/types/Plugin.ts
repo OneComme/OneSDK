@@ -1,6 +1,10 @@
 import Store from 'electron-store';
 import { ConnectedData, SendType } from './Api'
-
+import { Comment } from './Comment';
+import { Service } from './Service';
+import { UserNameData } from './UserData';
+import { SpeechConfig } from './Config';
+export type PluginFilterEvent = 'filter.comment' | 'filter.speech'
 export interface PluginRequest {
   url: string // request url
   method: 'GET' | 'POST' | 'PUT' | 'DELETE'
@@ -25,13 +29,15 @@ export interface OnePlugin {
   uid: string
   name: string
   version: string
-  permissions: SendType[],
+  permissions: (SendType | PluginFilterEvent)[],
   author?: string
   url?: string
   defaultState: Record<string, any>
   init?(api: PluginAPI, initialData: Partial<ConnectedData>): void
   subscribe?(type: SendType, ...args: any[]): void
   request?(req: PluginRequest): Promise<PluginResponse>
+  filterComment?(comment: Comment, service: Service, userData: UserNameData | null): Promise<Comment | false>
+  filterSpeech?(text: string, service: Service, userData: UserNameData | null, config: SpeechConfig): Promise<string | false>
   destroy?(): void
   [key: string]: any
 }

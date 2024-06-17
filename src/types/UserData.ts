@@ -1,4 +1,5 @@
 import { BaseBadge } from './BaseResponse';
+import { ServiceType } from './Service';
 export interface GiftAmount {
   unit?: string
   value: number
@@ -10,7 +11,7 @@ export interface UserNameData {
   lang: string[]
   username?: string
   screenName?: string
-  service?: string
+  service?: ServiceType
   nameHistory: string[]
   interval?: number // comment interval
   lcts: string // last comment timestamp

@@ -1,7 +1,8 @@
+import { getAllComments } from './../../main/output';
 import { RunResult } from 'better-sqlite3';
 import { QuizResult, Survey, SurveyResult, SurveyResults } from './Survey';
 import { BackupFile } from './Backup';
-import { OrderItem, UpdatableOrderItemProps } from './Order';
+import { OrderItem, OrderStats, UpdatableOrderItemProps } from './Order';
 import { Comment, ListenerInfo, CommentData, CommentSenderOption, Reaction, ExtendedComment } from './Comment'
 import { RecursivePartial } from './Common'
 import { ActiveSurvey, Config, SpeechConfig } from './Config'
@@ -21,8 +22,9 @@ import { CommentNotification } from './BaseResponse';
 import { PluginList } from './Plugin';
 
 type UnregisterFunction = () => void
-export type SendType = 'connected' | 'comments' | 'clear' | 'deleted' | 'meta' | 'meta.clear' | 'config' | 'userDatas' | 'services' | 'notification' | 'pinned' | 'waitingList' | 'bookmarked' | 'setList' | 'reactions' | 'wp.update' | 'setList.request'
+export type SendType = 'connected' | 'comments' | 'clear' | 'deleted' | 'meta' | 'meta.clear' | 'config' | 'userDatas' | 'services' | 'notification' | 'pinned' | 'waitingList' | 'bookmarked' | 'setList' | 'reactions' | 'wp.update' | 'wp.exec' | 'setList.request'
 export type SendSurveyType = 'connected' | 'result' | 'config' | 'reset' | 'result.quiz' | 'result.quiz.correct'
+
 interface WordPartyErrorResponse {
   status: 'error'
   dir: string
@@ -48,7 +50,7 @@ export interface Api {
   receiveUpdateMeta(callback: (id: string, meta: ServiceMeta) => void): UnregisterFunction
   receiveClearMeta(callback: (id: string) => void): UnregisterFunction
   receiveLoadWordParty(callback: (data: WordPartyResponse) => void): UnregisterFunction
-  receiveWatings(callback: (orders: OrderItem[]) => void): UnregisterFunction
+  receiveWatings(callback: (orders: OrderItem[], stats: OrderStats) => void): UnregisterFunction
   receiveClearComments(callback: () => void): UnregisterFunction
   receiveUpdateUserDatas(callback: (userData: UserStoreData) => void): UnregisterFunction
   receiveDeleteUserDatas(callback: (ids: string[]) => void): UnregisterFunction
@@ -61,6 +63,8 @@ export interface Api {
   receiveServices(callback: (services: Service[]) => void): UnregisterFunction
   receiveRequests(callback: (requests: RequestItem[]) => void): UnregisterFunction
   receiveCommentNotification(callback: (data: CommentNotification) => void): UnregisterFunction
+  receiveSetList(callback: (data: SetList) => void): UnregisterFunction
+  receiveStockComments(callback: (data: Comment[]) => void): UnregisterFunction
   getServices(): Promise<Service[]>
   createService(): Promise<Service>
   updateService(service: Service): void
@@ -94,6 +98,7 @@ export interface Api {
   openOrderManagerWindow(): void
   openSetlistManagerWindow(): void
   getWaitingList(): Promise<OrderItem[]>
+  getOrderStats(): Promise<OrderStats>
   completeWaitingList(ids: string[]): Promise<OrderItem[]>
   cancelWaitingList(ids: string[]): Promise<OrderItem[]>
   shuffleWaitingList(): Promise<OrderItem[]>
@@ -101,6 +106,9 @@ export interface Api {
   prioritizeLowerCount(): Promise<OrderItem[]>
   prioritizeLowerTotalCount(): Promise<OrderItem[]>
   updateOrderItems(items: UpdatableOrderItemProps[]): Promise<OrderItem[]>
+  completeTopOrder(): Promise<OrderItem[]>
+  incrementPlayingOrder(): Promise<OrderItem[]>
+  decrementPlayingOrder(): Promise<OrderItem[]>
   changePlayings(count: number): Promise<OrderItem[]>
   completePlayingOrders(): Promise<OrderItem[]>
   dragFileStart(filename: string): void
@@ -204,9 +212,17 @@ export interface Api {
   reloladPlugins(): Promise<PluginList>
   deleteTemplate(templateId: string): Promise<boolean>
   createReport(): void
+  clearAllCache(): Promise<void>
   changeThemeTemporarily(mode: 'light' | 'dark'):void
   getRequests(): Promise<RequestItem[]>
   deleteRequests(ids: number[]): Promise<RequestItem[]>
+  openCommentStock(): void
+  openGiftWindow(): void
+  stockComment(comment: Comment): Promise<void>
+  unstockComments(ids: string[]): Promise<void>
+  getAllStockComments(): Promise<Comment[]>
+  clearAllStockComments(): Promise<void>
+  getAllComments(): Promise<Comment[]>
 }
 export interface TestCommentOption {
   speech: boolean

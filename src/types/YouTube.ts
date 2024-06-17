@@ -903,8 +903,15 @@ export namespace YouTube {
     // clientMessages: ClientMessages;
     viewerName: string;
   }
+  export interface Text {
+    runs: Run[]
+  }
+  export interface MessageRenderer {
+    text: Text
+    trackingParams: string
+  }
   export interface InitialData {
-    contents: { liveChatRenderer: LiveChatRenderer }
+    contents: { liveChatRenderer: LiveChatRenderer, messageRenderer?: MessageRenderer }
     responseContext: any // todo
     trackingParams: string
   }

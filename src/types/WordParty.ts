@@ -2,7 +2,11 @@ import { ServiceType } from './Service'
 export type PositionType = 'pixel' | 'percentage' 
 export type RangeValue = [number, number]
 export type PopperItemType = 'default' | 'emoji' | 'image'
-
+export interface WordPartyExecParams {
+  id: string
+  count?: number
+  comment?: string
+}
 export interface PopperItemConfig {
   type: PopperItemType
   amount: number
@@ -43,6 +47,7 @@ export interface DropperTextureConfig {
   wind?: number
   forceX?: number
   forceY?: number
+  forceRotate?: number
   through?: boolean
   randomly?: boolean
   useGravityPoint?: boolean
@@ -202,6 +207,8 @@ export interface WordPartyItem {
   matchGift?: boolean
   matchReaction?: boolean
   matchChannelPoint?: boolean
+  matchPowerupBits?: boolean
+  targetPowerupBits?: string[]
   excludeReaction?: boolean
   giftParams?: GiftParams[]
   matchNew?: boolean

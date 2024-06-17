@@ -259,6 +259,9 @@ export interface UICommentConfig {
   fontFamily: string
   padding: number
   lineHeight: number
+  imgSize: number
+  giftImgSize: number
+  emoteImgSize: number
 }
 export interface UIViewerConfig {
   chatView: boolean
