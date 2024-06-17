@@ -6,6 +6,7 @@ import { Service, ServiceMeta } from './Service'
 import { RequestItem, SetListAPIResponse } from './Setlist'
 import { Comment } from './Comment'
 import { SendType } from './Api';
+import { WordPartyExecParams } from './WordParty';
 export type SubscribeAction = 'comments' | 'meta'
 export interface MetaResponse {
   service: Service
@@ -57,7 +58,8 @@ export interface PublishActions {
   'wp.update': {
     dir: string
   },
-  'setList.request': RequestItem[]
+  'setList.request': RequestItem[],
+  'wp.exec': WordPartyExecParams
 }
 export type Subscriber<T extends SendType = SendType> = {
   action: T
