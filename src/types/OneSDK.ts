@@ -59,9 +59,9 @@ export interface PublishActions {
   },
   'setList.request': RequestItem[]
 }
-export interface Subscriber {
-  action: SendType
-  callback: (response: PublishActions[SendType]) => void
+export type Subscriber<T extends SendType = SendType> = {
+  action: T
+  callback: (response: PublishActions[T]) => void
 }
 export interface DeletedData {
   id: string
