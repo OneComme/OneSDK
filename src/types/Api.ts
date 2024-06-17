@@ -1,4 +1,3 @@
-import { getAllComments } from './../../main/output';
 import { RunResult } from 'better-sqlite3';
 import { QuizResult, Survey, SurveyResult, SurveyResults } from './Survey';
 import { BackupFile } from './Backup';
