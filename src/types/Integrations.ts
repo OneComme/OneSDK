@@ -1,5 +1,5 @@
 export interface YNCNeoHttpResponse {
-  lang: string, 
+  lang: string
   text: string
   status: 'success' | 'failure'
 }

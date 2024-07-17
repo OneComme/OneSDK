@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/prefer-namespace-keyword */
-import { BaseResponse } from "./BaseResponse";
+import { BaseResponse } from './BaseResponse'
 
 export module Twitter {
   export interface EntryContent {
@@ -53,7 +53,7 @@ export module Twitter {
         type: string
         url: string
       }[]
-    },
+    }
     extended_entities: any
   }
   export interface User {
@@ -66,13 +66,13 @@ export module Twitter {
     advertiser_account_type: string
   }
   export interface GlobalObject {
-    tweets: {[key: string]: Tweet}
-    users: {[key: string]: User}
+    tweets: { [key: string]: Tweet }
+    users: { [key: string]: User }
   }
   export interface RootResponse {
     errors?: {
       code: number
-      message: string 
+      message: string
     }[]
     globalObjects?: GlobalObject
     timeline?: {
@@ -80,10 +80,9 @@ export module Twitter {
       instructions: Instruction[]
     }
   }
-	export interface CommentResponse extends BaseResponse {
+  export interface CommentResponse extends BaseResponse {
     screenName: string
     link: string
     commentVisible?: boolean
-	}
+  }
 }
-

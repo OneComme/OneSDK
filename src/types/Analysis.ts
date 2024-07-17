@@ -33,8 +33,8 @@ export interface GiftUser {
 export interface TimeSection {
   timestamp: number
   name: string
-  comment: 0,
-  gift: 0,
+  comment: 0
+  gift: 0
 }
 export interface TimeSegment {
   filename: string

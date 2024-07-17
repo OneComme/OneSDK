@@ -277,86 +277,109 @@ export namespace YouTube {
   }
 
   export interface PrimaryText {
-    runs: Run[];
+    runs: Run[]
   }
 
   export interface LiveChatSponsorshipsHeaderRenderer {
-    authorName: AuthorName;
-    authorPhoto: AuthorPhoto;
-    primaryText: PrimaryText;
-    authorBadges: AuthorBadge[];
-    contextMenuEndpoint: ContextMenuEndpoint;
-    contextMenuAccessibility: ContextMenuAccessibility;
-    image: Image;
+    authorName: AuthorName
+    authorPhoto: AuthorPhoto
+    primaryText: PrimaryText
+    authorBadges: AuthorBadge[]
+    contextMenuEndpoint: ContextMenuEndpoint
+    contextMenuAccessibility: ContextMenuAccessibility
+    image: Image
   }
-
+  export interface LiveChatBannerHeaderRenderer {
+    icon: Icon
+    text: Text
+  }
+  export interface ContextMenuButton {
+    buttonRenderer: ButtonRenderer
+  }
+  export interface MetadataText {
+    runs: Run[]
+  }
+  export interface PollQuestion {
+    runs: Run[]
+  }
+  export interface PollHeaderRenderer {
+    pollQuestion: PollQuestion
+    thumbnail: {
+      thumbnails: Thumbnail[]
+    }
+    metadataText: MetadataText
+    liveChatPollType: string
+    contextMenuButton: ContextMenuButton
+  }
   export interface Header {
-    liveChatSponsorshipsHeaderRenderer: LiveChatSponsorshipsHeaderRenderer;
+    liveChatSponsorshipsHeaderRenderer?: LiveChatSponsorshipsHeaderRenderer
+    liveChatBannerHeaderRenderer?: LiveChatBannerHeaderRenderer
+    pollHeaderRenderer?: PollHeaderRenderer
   }
 
   export interface LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer {
-    id: string;
-    timestampUsec: string;
-    authorExternalChannelId: string;
-    header: Header;
+    id: string
+    timestampUsec: string
+    authorExternalChannelId: string
+    header: Header
   }
   export interface UrlEndpoint {
-    url: string;
-    target: string;
+    url: string
+    target: string
   }
   export interface NavigationEndpoint {
-    clickTrackingParams: string;
-    commandMetadata: CommandMetadata;
-    urlEndpoint: UrlEndpoint;
+    clickTrackingParams: string
+    commandMetadata: CommandMetadata
+    urlEndpoint: UrlEndpoint
   }
   export interface ButtonRenderer {
-    style: string;
-    size: string;
-    isDisabled: boolean;
-    text: Text;
-    navigationEndpoint: NavigationEndpoint;
-    trackingParams: string;
-    accessibilityData: AccessibilityData;
+    style: string
+    size: string
+    isDisabled: boolean
+    text: Text
+    navigationEndpoint: NavigationEndpoint
+    trackingParams: string
+    accessibilityData: AccessibilityData
   }
   export interface ActionButton {
-    buttonRenderer: ButtonRenderer;
+    buttonRenderer: ButtonRenderer
   }
   export interface LiveChatViewerEngagementMessageRenderer {
-    id: string;
-    timestampUsec: string;
-    icon: Icon;
-    message: Message;
-    actionButton: ActionButton;
-    trackingParams: string;
+    id: string
+    icon: Icon
+    message: Message
+    timestampUsec?: string
+    actionButton?: ActionButton
+    trackingParams?: string
   }
   export interface AutoModeratedItem {
-    liveChatTextMessageRenderer: LiveChatTextMessageRenderer;
+    liveChatTextMessageRenderer: LiveChatTextMessageRenderer
   }
   export interface HeaderText {
-    runs: Run[];
+    runs: Run[]
   }
   export interface LiveChatAutoModMessageRenderer {
-    id: string;
-    timestampUsec: string;
-    autoModeratedItem: AutoModeratedItem;
-    headerText: HeaderText;
-    infoDialogButton: any; // 略
-    moderationButtons: any[]; // 略
-    authorExternalChannelId: string;
-    inlineActionButtons: any[]; // 略
-    additionalInlineActionButtons: any; // 略
+    id: string
+    timestampUsec: string
+    autoModeratedItem: AutoModeratedItem
+    headerText: HeaderText
+    infoDialogButton: any // 略
+    moderationButtons: any[] // 略
+    authorExternalChannelId: string
+    inlineActionButtons: any[] // 略
+    additionalInlineActionButtons: any // 略
   }
   export interface LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
-    id: string;
-    timestampUsec: string;
-    timestampText: TimestampText;
-    authorExternalChannelId: string;
-    authorName: AuthorName;
-    authorPhoto: AuthorPhoto;
-    message: Message;
-    contextMenuEndpoint: ContextMenuEndpoint;
-    contextMenuAccessibility: ContextMenuAccessibility;
-    trackingParams: string;
+    id: string
+    timestampUsec: string
+    timestampText: TimestampText
+    authorExternalChannelId: string
+    authorName: AuthorName
+    authorPhoto: AuthorPhoto
+    message: Message
+    contextMenuEndpoint: ContextMenuEndpoint
+    contextMenuAccessibility: ContextMenuAccessibility
+    trackingParams: string
   }
   export interface Subtext {
     runs: Run[]
@@ -368,6 +391,17 @@ export namespace YouTube {
     text: Text
     subtext: Subtext
   }
+
+  export interface addBannerToLiveChatCommand {
+    bannerRenderer: BannerRenderer
+  }
+  export interface PollToUpdate {
+    pollRenderer: PollRenderer
+  }
+  export interface UpdateLiveChatPollAction {
+    pollToUpdate: PollToUpdate
+  }
+
   export type ChatRendererType = LiveChatTextMessageRenderer | LiveChatPaidMessageRenderer | LiveChatPaidStickerRenderer
   export interface Item {
     liveChatTextMessageRenderer?: LiveChatTextMessageRenderer
@@ -375,7 +409,7 @@ export namespace YouTube {
     liveChatPaidStickerRenderer?: LiveChatPaidStickerRenderer
     liveChatMembershipItemRenderer?: LiveChatMembershipItemRenderer
     liveChatPlaceholderItemRenderer?: liveChatPlaceholderItemRenderer
-    liveChatSponsorshipsGiftPurchaseAnnouncementRenderer?: LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer;
+    liveChatSponsorshipsGiftPurchaseAnnouncementRenderer?: LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer
     liveChatViewerEngagementMessageRenderer?: LiveChatViewerEngagementMessageRenderer
     liveChatAutoModMessageRenderer: LiveChatAutoModMessageRenderer
     liveChatSponsorshipsGiftRedemptionAnnouncementRenderer: LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer
@@ -490,18 +524,18 @@ export namespace YouTube {
   }
 
   export interface LiveChatMembershipItemRenderer {
-    id: string;
-    timestampUsec: string;
-    timestampText: TimestampText;
-    authorExternalChannelId: string;
-    headerPrimaryText?: Message;
-    headerSubtext?: Message;
-    message?: Message;
-    authorName: AuthorName;
-    authorPhoto: AuthorPhoto;
-    authorBadges: AuthorBadge[];
-    contextMenuEndpoint: ContextMenuEndpoint2;
-    contextMenuAccessibility: ContextMenuAccessibility2;
+    id: string
+    timestampUsec: string
+    timestampText: TimestampText
+    authorExternalChannelId: string
+    headerPrimaryText?: Message
+    headerSubtext?: Message
+    message?: Message
+    authorName: AuthorName
+    authorPhoto: AuthorPhoto
+    authorBadges: AuthorBadge[]
+    contextMenuEndpoint: ContextMenuEndpoint2
+    contextMenuAccessibility: ContextMenuAccessibility2
     trackingParams: string
   }
 
@@ -545,81 +579,81 @@ export namespace YouTube {
     durationSec: string
   }
   export interface MarkChatItemAsDeletedAction {
-    deletedStateMessage: Message;
-    targetItemId: string;
+    deletedStateMessage: Message
+    targetItemId: string
   }
   export interface MarkChatItemsByAuthorAsDeletedAction {
-    deletedStateMessage: Message;
-    externalChannelId: string;
+    deletedStateMessage: Message
+    externalChannelId: string
   }
   export interface ViewCount2 {
-    simpleText: string;
+    simpleText: string
   }
   export interface ExtraShortViewCount {
-    accessibility: Accessibility;
-    simpleText: string;
+    accessibility: Accessibility
+    simpleText: string
   }
   export interface VideoViewCountRenderer {
-    viewCount: ViewCount2;
-    isLive: boolean;
-    extraShortViewCount: ExtraShortViewCount;
+    viewCount: ViewCount2
+    isLive: boolean
+    extraShortViewCount: ExtraShortViewCount
   }
   export interface VideoViewerShipRenderer {
-    isLive: boolean;
+    isLive: boolean
   }
   export interface ViewCount {
-    videoViewCountRenderer: VideoViewCountRenderer;
+    videoViewCountRenderer: VideoViewCountRenderer
   }
   export interface ViewerShip {
-    videoViewCountRenderer: VideoViewerShipRenderer;
+    videoViewCountRenderer: VideoViewerShipRenderer
   }
   export interface UpdateViewershipAction {
-    viewCount?: ViewCount;
-    viewership?: ViewerShip;
+    viewCount?: ViewCount
+    viewership?: ViewerShip
   }
   export interface Title {
-    runs: Run[];
+    runs: Run[]
   }
   export interface UpdateTitleAction {
-    title: Title;
+    title: Title
   }
   export interface UpdateDescriptionAction {
     // todo
   }
   export interface DefaultText {
-    simpleText: string;
+    simpleText: string
   }
   export interface ToggledText {
-    simpleText: string;
+    simpleText: string
   }
   export interface UpdateToggleButtonTextAction {
-    defaultText: DefaultText;
-    toggledText: ToggledText;
-    buttonId: string;
+    defaultText: DefaultText
+    toggledText: ToggledText
+    buttonId: string
   }
   export interface RemoveChatItemAction {
-    targetItemId: string;
+    targetItemId: string
   }
   export interface RemoveChatItemByAuthorAction {
-    externalChannelId: string;
+    externalChannelId: string
   }
   export interface SetEntityCommand {
-    identifier: string;
-    entity: string;
+    identifier: string
+    entity: string
   }
   export interface QuestionText {
-    runs: Run[];
+    runs: Run[]
   }
   export interface QuestionLabelText {
-    simpleText: string;
+    simpleText: string
   }
   export interface LiveChatCreatorAnswersQuestionsRenderer {
-    icon: Icon;
-    questionLabelText: QuestionLabelText;
-    questionText: QuestionText;
+    icon: Icon
+    questionLabelText: QuestionLabelText
+    questionText: QuestionText
     // overflowMenuButton: OverflowMenuButton;
     // askQuestionButton: AskQuestionButton;
-    collapsedStateEntityKey: string;
+    collapsedStateEntityKey: string
   }
   export interface CreatorAvatar {
     thumbnails: Thumbnail[]
@@ -639,35 +673,65 @@ export namespace YouTube {
     creatorAuthorName: CreatorAuthorName
     questionMessage: QuestionMessage
   }
+  export interface SendLiveChatVoteEndpoint {
+    params: string
+  }
+  export interface SelectServiceEndpoint {
+    clickTrackingParams: string
+    commandMetadata: CommandMetadata
+    sendLiveChatVoteEndpoint: SendLiveChatVoteEndpoint
+  }
+  export interface VotePercentage {
+    simpleText: string
+  }
+  export interface Choice {
+    text: Text
+    selected: boolean
+    voteRatio: number
+    votePercentage: VotePercentage
+    selectServiceEndpoint: SelectServiceEndpoint
+  }
+  export interface PollRenderer {
+    choices: Choice[]
+    trackingParams: string
+    liveChatPollId: string
+    header: Header
+    displayVoteResults: boolean
+    button: any
+  }
   export interface Contents {
-    liveChatCreatorAnswersQuestionsRenderer: LiveChatCreatorAnswersQuestionsRenderer;
+    liveChatCreatorAnswersQuestionsRenderer: LiveChatCreatorAnswersQuestionsRenderer
     liveChatCallForQuestionsRenderer: LiveChatCallForQuestionsRenderer
+    pollRenderer: PollRenderer
   }
   export interface ElementsCommand {
-    setEntityCommand: SetEntityCommand;
+    setEntityCommand: SetEntityCommand
   }
   export interface OnCollapseCommand {
-    clickTrackingParams: string;
-    elementsCommand: ElementsCommand;
+    clickTrackingParams: string
+    elementsCommand: ElementsCommand
   }
   export interface OnExpandCommand {
-    clickTrackingParams: string;
-    elementsCommand: ElementsCommand;
+    clickTrackingParams: string
+    elementsCommand: ElementsCommand
   }
   export interface LiveChatBannerRenderer {
-    contents: Contents;
-    actionId: string;
-    viewerIsCreator: boolean;
-    targetId: string;
-    onCollapseCommand: OnCollapseCommand;
-    onExpandCommand: OnExpandCommand;
-    isStackable: boolean;
+    contents: Contents
+    actionId: string
+    viewerIsCreator: boolean
+    targetId: string
+    onCollapseCommand: OnCollapseCommand
+    onExpandCommand: OnExpandCommand
+    isStackable: boolean
+    header?: Header
+    backgroundType?: string
+    bannerType?: string
   }
   export interface BannerRenderer {
-    liveChatBannerRenderer: LiveChatBannerRenderer;
+    liveChatBannerRenderer: LiveChatBannerRenderer
   }
   export interface AddBannerToLiveChatCommand {
-    bannerRenderer: BannerRenderer;
+    bannerRenderer: BannerRenderer
   }
   export interface Action {
     clickTrackingParams?: string
@@ -679,9 +743,10 @@ export namespace YouTube {
     updateTitleAction?: UpdateTitleAction
     updateDescriptionAction?: UpdateDescriptionAction
     updateToggleButtonTextAction?: UpdateToggleButtonTextAction
-    removeChatItemAction?: RemoveChatItemAction;
-    removeChatItemByAuthorAction?: RemoveChatItemByAuthorAction;
-    addBannerToLiveChatCommand: AddBannerToLiveChatCommand;
+    removeChatItemAction?: RemoveChatItemAction
+    removeChatItemByAuthorAction?: RemoveChatItemByAuthorAction
+    addBannerToLiveChatCommand: AddBannerToLiveChatCommand
+    updateLiveChatPollAction: UpdateLiveChatPollAction
   }
 
   export interface LiveChatContinuation {
@@ -718,39 +783,39 @@ export namespace YouTube {
   export interface LikeCountIfLiked {
     content: string
   }
-  
+
   export interface LikeCountIfDisliked {
     content: string
   }
-  
+
   export interface LikeCountIfIndifferent {
     content: string
   }
-  
+
   export interface ExpandedLikeCountIfLiked {
     content: string
   }
-  
+
   export interface ExpandedLikeCountIfDisliked {
     content: string
   }
-  
+
   export interface ExpandedLikeCountIfIndifferent {
     content: string
   }
-  
+
   export interface LikeCountLabel {
     content: string
   }
-  
+
   export interface LikeButtonA11yText {
     content: string
   }
-  
+
   export interface SentimentFactoidA11yTextIfLiked {
     content: string
   }
-  
+
   export interface SentimentFactoidA11yTextIfDisliked {
     content: string
   }
@@ -775,65 +840,65 @@ export namespace YouTube {
     likeCountEntity?: LikeCountEntity
   }
   export interface Mutation {
-    entityKey: string;
-    type: string;
+    entityKey: string
+    type: string
     payload: MutationPayload
   }
 
   export interface Timestamp {
-    seconds: string;
-    nanos: number;
+    seconds: string
+    nanos: number
   }
   export interface EntityBatchUpdate {
-    mutations: Mutation[];
-    timestamp: Timestamp;
+    mutations: Mutation[]
+    timestamp: Timestamp
   }
   export interface FrameworkUpdates {
-    entityBatchUpdate: EntityBatchUpdate;
+    entityBatchUpdate: EntityBatchUpdate
   }
   export interface ServiceTrackingParams {
-    service: string;
-    params: Param[];
+    service: string
+    params: Param[]
   }
   export interface ChangeEngagementPanelVisibilityAction {
-    targetId: string;
-    visibility: string;
+    targetId: string
+    visibility: string
   }
   export interface Embed {
-    iframeUrl: string;
-    flashUrl: string;
-    width: number;
-    height: number;
-    flashSecureUrl: string;
+    iframeUrl: string
+    flashUrl: string
+    width: number
+    height: number
+    flashSecureUrl: string
   }
   export interface LiveBroadcastDetails {
-    isLiveNow: boolean;
-    startTimestamp: Date;
+    isLiveNow: boolean
+    startTimestamp: Date
   }
   export interface PlayerMicroformatRenderer {
-    thumbnail: Thumbnail3;
-    embed: Embed;
-    title: Title;
-    lengthSeconds: string;
-    ownerProfileUrl: string;
-    externalChannelId: string;
-    isFamilySafe: boolean;
-    availableCountries: string[];
-    isUnlisted: boolean;
-    hasYpcMetadata: boolean;
-    viewCount: string;
-    category: string;
-    publishDate: string;
-    ownerChannelName: string;
-    liveBroadcastDetails: LiveBroadcastDetails;
-    uploadDate: string;
+    thumbnail: Thumbnail3
+    embed: Embed
+    title: Title
+    lengthSeconds: string
+    ownerProfileUrl: string
+    externalChannelId: string
+    isFamilySafe: boolean
+    availableCountries: string[]
+    isUnlisted: boolean
+    hasYpcMetadata: boolean
+    viewCount: string
+    category: string
+    publishDate: string
+    ownerChannelName: string
+    liveBroadcastDetails: LiveBroadcastDetails
+    uploadDate: string
   }
   export interface Microformat {
-    playerMicroformatRenderer: PlayerMicroformatRenderer;
+    playerMicroformatRenderer: PlayerMicroformatRenderer
   }
   export interface VideoResponse {
-    responseContext: ResponseContext;
-    // todo: 
+    responseContext: ResponseContext
+    // todo:
     // playabilityStatus: PlayabilityStatus;
     // streamingData: StreamingData;
     // heartbeatParams: HeartbeatParams;
@@ -841,11 +906,11 @@ export namespace YouTube {
     // videoDetails: VideoDetails;
     // playerConfig: PlayerConfig;
     // storyboards: Storyboards;
-    microformat: Microformat;
+    microformat: Microformat
     // cards: Cards;
-    trackingParams: string;
+    trackingParams: string
     // attestation: Attestation;
-    frameworkUpdates: FrameworkUpdates;
+    frameworkUpdates: FrameworkUpdates
   }
   export interface MainText {
     runs: Run[]
@@ -885,23 +950,23 @@ export namespace YouTube {
     adBreakHeartbeatParams: string
   }
   export interface MetaResponse {
-    responseContext: ResponseContext;
-    continuation: Continuation;
-    actions?: Action[];
-    frameworkUpdates?: FrameworkUpdates;
+    responseContext: ResponseContext
+    continuation: Continuation
+    actions?: Action[]
+    frameworkUpdates?: FrameworkUpdates
   }
   export interface LiveChatRenderer {
-    continuations: any[];
-    actions: Action[];
+    continuations: any[]
+    actions: Action[]
     // actionPanel: ActionPanel;
     // itemList: ItemList;
-    header: any;
+    header: any
     // ticker: Ticker;
-    trackingParams: string;
+    trackingParams: string
     // participantsList: ParticipantsList;
     // emojis: Emoji2[];
     // clientMessages: ClientMessages;
-    viewerName: string;
+    viewerName: string
   }
   export interface Text {
     runs: Run[]
@@ -911,7 +976,7 @@ export namespace YouTube {
     trackingParams: string
   }
   export interface InitialData {
-    contents: { liveChatRenderer: LiveChatRenderer, messageRenderer?: MessageRenderer }
+    contents: { liveChatRenderer: LiveChatRenderer; messageRenderer?: MessageRenderer }
     responseContext: any // todo
     trackingParams: string
   }
@@ -920,6 +985,23 @@ export namespace YouTube {
     trackingParams: string
     frameworkUpdates: FrameworkUpdates
     continuationContents: ContinuationContents
+  }
+  export interface ChoiceData {
+    label: string
+    percentage: string
+    ratio: number
+  }
+
+  export interface SurveyData {
+    id: string
+    title: string
+    thumbnail: string
+    meta: string
+    choices: ChoiceData[]
+  }
+  export interface SurveyResult extends SurveyData {
+    message: string
+    result: string[]
   }
   export interface MemberShip {
     primary: string

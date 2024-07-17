@@ -1,4 +1,4 @@
-import { BaseResponse } from "./BaseResponse";
+import { BaseResponse } from './BaseResponse'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace NicoNama {
@@ -25,11 +25,11 @@ export namespace NicoNama {
   export interface WatchContext {
     parameter: Parameter
   }
-  
+
   export interface Parameter {
     nicorepo: string
   }
-  
+
   export interface Actor {
     url: string
     name: string
@@ -73,7 +73,7 @@ export namespace NicoNama {
     user_id: string
     vpos: number
   }
-  
+
   export interface Thread {
     last_res: number
     resultcode: number
@@ -83,8 +83,8 @@ export namespace NicoNama {
     ticket: string
   }
   export interface MetaResponse {
-    type: string;
-    data: any;
+    type: string
+    data: any
   }
   export interface RootResponse {
     chat?: Chat
@@ -157,26 +157,26 @@ export namespace NicoNama {
     giftRank: string
     price: number
     no: number
-		commentVisible?: boolean
+    commentVisible?: boolean
     screenName: string
     origin?: string
-	}
+  }
   export interface Id {
     value: string
   }
-  
+
   export interface AudienceLimitation {
     loginLimitation: string
   }
-  
+
   export interface Features {
     enabledList: string[]
   }
-  
+
   export interface KonomiTags {
     itemsList: any[]
   }
-  
+
   export interface Program {
     title: string
     description: string
@@ -184,7 +184,7 @@ export namespace NicoNama {
     schedule: Schedule
     additionalDescriptions: unknown
   }
-  
+
   export interface Schedule {
     status: string
     openTime: OpenTime
@@ -193,32 +193,32 @@ export namespace NicoNama {
     endTime: EndTime
     vposBaseTime: VposBaseTime
   }
-  
+
   export interface OpenTime {
     seconds: number
     nanos: number
   }
-  
+
   export interface BeginTime {
     seconds: number
     nanos: number
   }
-  
+
   export interface ScheduledEndTime {
     seconds: number
     nanos: number
   }
-  
+
   export interface EndTime {
     seconds: number
     nanos: number
   }
-  
+
   export interface VposBaseTime {
     seconds: number
     nanos: number
   }
-  
+
   export interface ProgramProvider {
     type: string
     name: string
@@ -230,32 +230,32 @@ export namespace NicoNama {
     isStandardAccount: IsStandardAccount
     description: Description
   }
-  
+
   export interface NicopediaArticleUrl {
     value: string
   }
-  
+
   export interface ProgramProviderId {
     value: string
   }
-  
+
   export interface Icons {
     uri150x150: string
     uri50x50: string
   }
-  
+
   export interface UserLevel {
     value: number
   }
-  
+
   export interface IsStandardAccount {
     value: boolean
   }
-  
+
   export interface Description {
     value: string
   }
-  
+
   export interface SocialGroup {
     socialGroupId: string
     type: string
@@ -269,41 +269,41 @@ export namespace NicoNama {
     isJoined: boolean
     isDeleted: IsDeleted
   }
-  
+
   export interface IsSafeThumbnail {
     value: boolean
   }
-  
+
   export interface Level {
     value: number
   }
-  
+
   export interface IsDeleted {
     value: boolean
   }
-  
+
   export interface Statistics {
     viewers: Viewers
     comments: Comments
     timeshiftReservations?: TimeshiftReservations
   }
-  
+
   export interface Viewers {
     value: number
   }
   export interface Comments {
     value: number
   }
-  
+
   export interface TimeshiftReservations {
     value: number
   }
-  
+
   export interface Taxonomy {
     tags: Tags
     categories: Categories
   }
-  
+
   export interface Tags {
     itemsList: ItemsList[]
     ownerLocked: boolean
@@ -314,7 +314,7 @@ export namespace NicoNama {
     reserved: boolean
     nicopediaArticleUrl?: NicopediaArticleUrl2
   }
-  
+
   export interface NicopediaArticleUrl2 {
     value: string
   }
@@ -322,16 +322,16 @@ export namespace NicoNama {
     text: string
     nicopediaArticleUrl: NicopediaArticleUrl3
   }
-  
+
   export interface NicopediaArticleUrl3 {
     value: string
   }
-  
+
   export interface SubList {
     text: string
     nicopediaArticleUrl: NicopediaArticleUrl4
   }
-  
+
   export interface NicopediaArticleUrl4 {
     value: string
   }
@@ -342,14 +342,14 @@ export namespace NicoNama {
   export interface Thumbnail {
     screenshot?: Screenshot
   }
-  
+
   export interface Screenshot {
     large: string
     middle: string
     small: string
     micro: string
   }
-  
+
   export interface TimeshiftSetting {
     watchLimit: string
     requirement: string
@@ -357,17 +357,17 @@ export namespace NicoNama {
     endTime: EndTime2
     reservationDeadline: ReservationDeadline
   }
-  
+
   export interface EndTime2 {
     seconds: number
     nanos: number
   }
-  
+
   export interface ReservationDeadline {
     seconds: number
     nanos: number
   }
-  
+
   export interface ProgramsList {
     id: Id
     publicStatus: number

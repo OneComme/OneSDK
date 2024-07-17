@@ -1,136 +1,141 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/prefer-namespace-keyword */
-import { BaseResponse } from './BaseResponse';
-import { Colors } from './Comment';
+import { BaseResponse } from './BaseResponse'
+import { Colors } from './Comment'
 
 export module Twitch {
   export interface RootResponse {
-      'badge-info': string;
-      'animation-id': string;
-      badges: string;
-      bits?: string;
-      color: string;
-      'display-name': string;
-      emotes?: string;
-      'first-msg': string;
-      flags: string;
-      id: string;
-      mod: string;
-      'room-id': string;
-      subscriber: "0" | "1";
-      'tmi-sent-ts': string;
-      turbo: string;
-      'user-id': string;
-      message: string;
-      'user-type': string;
-      'system-msg'?: string
-      vip?: number
+    'badge-info': string
+    'animation-id': string
+    badges: string
+    bits?: string
+    color: string
+    'display-name': string
+    emotes?: string
+    'first-msg': string
+    flags: string
+    id: string
+    mod: string
+    'room-id': string
+    subscriber: '0' | '1'
+    'tmi-sent-ts': string
+    turbo: string
+    'user-id': string
+    message: string
+    'user-type': string
+    'system-msg'?: string
+    'user-name'?: string
+    'msg-id'?: string
+    'pinned-chat-paid-amount'?: string
+    'pinned-chat-paid-currency'?: string
+    login?: string
+    vip?: number
   }
   export interface Extensions {
-    durationMilliseconds: number;
-    operationName: string;
-    requestID: string;
+    durationMilliseconds: number
+    operationName: string
+    requestID: string
   }
   export interface DisplayBadge {
-    id: string;
-    setID: string;
-    version: string;
-    title: string;
-    image1x: string;
-    image2x: string;
-    image4x: string;
-    clickAction: string;
-    clickURL: string;
-    __typename: string;
-    description: string;
+    id: string
+    setID: string
+    version: string
+    title: string
+    image1x: string
+    image2x: string
+    image4x: string
+    clickAction: string
+    clickURL: string
+    __typename: string
+    description: string
   }
   export interface Self {
-    friendship?: any;
-    __typename: string;
+    friendship?: any
+    __typename: string
   }
   export interface CumulativeTenure {
-      daysRemaining: number;
-      months: number;
-      __typename: string;
+    daysRemaining: number
+    months: number
+    __typename: string
   }
   export interface Gift {
-    isGift: boolean;
-    __typename: string;
+    isGift: boolean
+    __typename: string
   }
   export interface SubscriptionBenefit {
-      id: string;
-      tier: string;
-      purchasedWithPrime: boolean;
-      gift: Gift;
-      __typename: string;
+    id: string
+    tier: string
+    purchasedWithPrime: boolean
+    gift: Gift
+    __typename: string
   }
   export interface Relationship {
-      cumulativeTenure: CumulativeTenure;
-      followedAt: Date;
-      subscriptionBenefit: SubscriptionBenefit;
-      __typename: string;
+    cumulativeTenure: CumulativeTenure
+    followedAt: Date
+    subscriptionBenefit: SubscriptionBenefit
+    __typename: string
   }
   export interface TargetUserData {
-    id: string;
-    login: string;
-    bannerImageURL?: any;
-    displayName: string;
-    displayBadges: DisplayBadge[];
-    profileImageURL: string;
-    createdAt: Date;
-    self: Self;
-    __typename: string;
-    relationship: Relationship;
+    id: string
+    login: string
+    bannerImageURL?: any
+    displayName: string
+    displayBadges: DisplayBadge[]
+    profileImageURL: string
+    createdAt: Date
+    self: Self
+    __typename: string
+    relationship: Relationship
   }
   export interface ViewCardResponse {
     data: {
       targetUser: TargetUserData
-    };
-    extensions: Extensions;
+    }
+    extensions: Extensions
   }
   export interface Badge {
-    id: string;
-    setID: string;
-    version: string;
-    title: string;
-    image1x: string;
-    image2x: string;
-    image4x: string;
-    clickAction: string;
-    clickURL: string;
-    __typename: string;
+    id: string
+    setID: string
+    version: string
+    title: string
+    image1x: string
+    image2x: string
+    image4x: string
+    clickAction: string
+    clickURL: string
+    __typename: string
   }
   export interface ClipMetadata {
-    game: string;
-    channel_display_name: string;
-    slug: string;
-    id: string;
-    broadcaster_id: string;
-    curator_id: string;
+    game: string
+    channel_display_name: string
+    slug: string
+    id: string
+    broadcaster_id: string
+    curator_id: string
   }
   export interface TwitchMetadata {
-    clip_metadata: ClipMetadata;
+    clip_metadata: ClipMetadata
   }
   export interface CommuinityPointsUserMessageData {
     timestamp: string
     redemption: Redemption
   }
   export interface CommuinityPointsUserMessage {
-    type: string;
-    data: CommuinityPointsUserMessageData;
+    type: string
+    data: CommuinityPointsUserMessageData
   }
-  
+
   export interface StreamChatRoomMessageData {
-    message_id: string;
-    request_url: string;
-    author_name: string;
-    thumbnail_url: string;
-    title: string;
-    twitch_metadata: TwitchMetadata;
+    message_id: string
+    request_url: string
+    author_name: string
+    thumbnail_url: string
+    title: string
+    twitch_metadata: TwitchMetadata
   }
   export interface StreamChatRoomMessage {
-    type: string;
-    data: StreamChatRoomMessageData;
+    type: string
+    data: StreamChatRoomMessageData
   }
   export interface User {
     id: string
@@ -142,22 +147,22 @@ export module Twitch {
     url_2x: string
     url_4x: string
   }
-  
+
   export interface MaxPerStream {
     is_enabled: boolean
     max_per_stream: number
   }
-  
+
   export interface MaxPerUserPerStream {
     is_enabled: boolean
     max_per_user_per_stream: number
   }
-  
+
   export interface GlobalCooldown {
     is_enabled: boolean
     global_cooldown_seconds: number
   }
-  
+
   export interface Reward {
     id: string
     channel_id: string
@@ -180,7 +185,6 @@ export module Twitch {
     global_cooldown: GlobalCooldown
     redemptions_redeemed_current_stream: any
     cooldown_expires_at: string
-    user_input?: string
     reward_type?: string
     bits_cost?: number
     default_bits_cost?: number
@@ -197,9 +201,9 @@ export module Twitch {
     cursor: string
   }
   export interface VideoPlayBackMessage {
-    type: string;
-    server_time: number;
-    viewers: number;
+    type: string
+    server_time: number
+    viewers: number
   }
   export interface ChatRichEmbed {
     message_id: string
@@ -215,26 +219,26 @@ export module Twitch {
     nonce: string
   }
   export interface Data {
-    topic: string;
-    message: string;
-  } 
+    topic: string
+    message: string
+  }
   export interface MetaResponse {
-    type: string;
-    data: Data;
+    type: string
+    data: Data
   }
   export interface Static {
-    "1": string
-    "2": string
-    "3": string
-    "4": string
-    "1.5": string
+    '1': string
+    '2': string
+    '3': string
+    '4': string
+    '1.5': string
   }
   export interface Animated {
-    "1": string
-    "2": string
-    "3": string
-    "4": string
-    "1.5": string
+    '1': string
+    '2': string
+    '3': string
+    '4': string
+    '1.5': string
   }
   export interface Image {
     animated: Animated
@@ -319,20 +323,19 @@ export module Twitch {
     redemption: Twitch.Redemption
   }
   export interface CommentResponse extends BaseResponse {
-		bits?: string
+    bits?: string
     price?: number
     unit?: string // ex. JPY
     paidText?: string
     colors?: Colors
-    turbo?: string;
-    flags?: string;
+    turbo?: string
+    flags?: string
     animationId?: string
-    mod?: string;
-    subscriber?: "0" | "1";
+    mod?: string
+    subscriber?: '0' | '1'
     isModerator: boolean
     origin: string
     reward?: Twitch.Reward
     screenName: string
-	}
+  }
 }
-

@@ -1,5 +1,5 @@
-import { ServiceType } from './Service';
-import { Question } from './Survey';
+import { ServiceType } from './Service'
+import { Question } from './Survey'
 export interface EmojiLimit {
   enabled: boolean
   count: number
@@ -125,6 +125,7 @@ export interface YouTubeConfig {
   speechAutoModeratedComment: boolean
   outputAutoModeratedComment: boolean
   showReceivedSponsorshipMessage: boolean
+  getSurvey: boolean
 }
 export interface MirrativConfig {
   lowestPriceCoin: number
@@ -143,7 +144,7 @@ export interface PlatformCommonConfig {
 }
 export interface PlatformConfig {
   common: PlatformCommonConfig
-  youtube: YouTubeConfig;
+  youtube: YouTubeConfig
   niconama: NicoNamaConfig
   showroom: ShowroomConfig
   bilibili: BiliBiliConfig
@@ -253,7 +254,13 @@ export interface UICommentConfig {
   labels: boolean
   returnVisitTime: boolean
   fontSize: number
+  nameSize: number
+  screenNameSize: number
+  labelSize: number
+  footerInfoSize: number
+  paidTextSize: number
   iconSize: number
+  badgeSize: number
   direction: CommentDirectionType
   animation: boolean
   fontFamily: string
@@ -365,6 +372,11 @@ export interface SetListConfig {
   templates: SetListTemplateList
   search: SetListSearchOptions
 }
+export interface TimestampConfig {
+  acceptTimestampComment: boolean
+  moderatorOnly: boolean
+  includeUsername: boolean
+}
 export interface Config {
   speech: SpeechConfig
   app: AppConfig
@@ -376,6 +388,7 @@ export interface Config {
   notification: NotificationConfig
   order: OrderConfig
   survey: SurveyConfig
+  timestamp: TimestampConfig
   ui: UIConfig
   mainView: MainViewConfig
   remote: RemoteConfig

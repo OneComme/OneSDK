@@ -1,27 +1,60 @@
-import { RunResult } from 'better-sqlite3';
-import { QuizResult, Survey, SurveyResult, SurveyResults } from './Survey';
-import { BackupFile } from './Backup';
-import { OrderItem, OrderStats, UpdatableOrderItemProps } from './Order';
-import { Comment, ListenerInfo, CommentData, CommentSenderOption, Reaction, ExtendedComment } from './Comment'
+import { AlertColor } from '@mui/material'
+import { RunResult } from 'better-sqlite3'
+import { AnalysisResultData, CommentLogFile, SearchFilterProps, SearchProps } from './Analysis'
+import { LoginStates } from './Auth'
+import { BackupFile } from './Backup'
+import { CommentNotification } from './BaseResponse'
+import { Bookmark } from './Bookmark'
+import { Comment, CommentData, CommentSenderOption, ExtendedComment, ListenerInfo, Reaction } from './Comment'
 import { RecursivePartial } from './Common'
 import { ActiveSurvey, Config, SpeechConfig } from './Config'
-import { ServerInfo } from './Server';
+import { BouyomiChanVoiceListResponse, YNCNeoRegistoryData } from './Integrations'
+import { NewsData } from './News'
+import { OrderItem, OrderStats, UpdatableOrderItemProps } from './Order'
+import { PluginList } from './Plugin'
+import { ServerInfo } from './Server'
 import { Service, ServiceError, ServiceMeta, ServiceType } from './Service'
-import { UpdateCheckResult } from './Update';
-import { GlobalConfig, WordPartyItem } from './WordParty';
-import { UserNameData, UserStoreData } from './UserData';
-import { BouyomiChanVoiceListResponse, YNCNeoRegistoryData } from './Integrations';
-import { LoginStates } from './Auth';
-import { TemplateData } from './Template';
-import { CommentLogFile, AnalysisResultData, SearchProps, SearchFilterProps } from './Analysis';
-import { MusicBox, MusicBoxParams, MusicData, MusicDataParams, MusicDataSearchResult, RequestItem, SetList, SetListAPIResponse, SetListArray } from './Setlist';
-import { Bookmark } from './Bookmark';
-import { NewsData } from './News';
-import { CommentNotification } from './BaseResponse';
-import { PluginList } from './Plugin';
+import {
+  MusicBox,
+  MusicBoxParams,
+  MusicData,
+  MusicDataParams,
+  MusicDataSearchResult,
+  RequestItem,
+  SetList,
+  SetListAPIResponse,
+  SetListArray,
+} from './Setlist'
+import { QuizResult, Survey, SurveyResult, SurveyResults } from './Survey'
+import { TemplateData } from './Template'
+import { UpdateCheckResult } from './Update'
+import { UserNameData, UserStoreData } from './UserData'
+import { GlobalConfig, WordPartyItem } from './WordParty'
+import { TimestampData } from './Timestamp'
 
 type UnregisterFunction = () => void
-export type SendType = 'connected' | 'comments' | 'clear' | 'deleted' | 'meta' | 'meta.clear' | 'config' | 'userDatas' | 'services' | 'notification' | 'pinned' | 'waitingList' | 'bookmarked' | 'setList' | 'reactions' | 'wp.update' | 'wp.exec' | 'setList.request'
+export type SendType =
+  | 'connected'
+  | 'comments'
+  | 'clear'
+  | 'deleted'
+  | 'meta'
+  | 'meta.clear'
+  | 'config'
+  | 'userDatas'
+  | 'services'
+  | 'notification'
+  | 'pinned'
+  | 'waitingList'
+  | 'bookmarked'
+  | 'setList'
+  | 'reactions'
+  | 'wp.update'
+  | 'wp.exec'
+  | 'setList.request'
+  | 'yt.survey.start'
+  | 'yt.survey.update'
+  | 'yt.survey.finish'
 export type SendSurveyType = 'connected' | 'result' | 'config' | 'reset' | 'result.quiz' | 'result.quiz.correct'
 
 interface WordPartyErrorResponse {
@@ -39,9 +72,11 @@ export type WordPartyResponse = WordPartySuccessResponse | WordPartyErrorRespons
 
 export interface Api {
   platform: string
-  receiveComments(callback: (comments: Comment[], listeners: ListenerInfo[], options: CommentSenderOption) => void): UnregisterFunction
+  receiveComments(
+    callback: (comments: Comment[], listeners: ListenerInfo[], options: CommentSenderOption) => void
+  ): UnregisterFunction
   receiveReactions(callback: (reactions: Reaction[]) => void): UnregisterFunction
-  receiveDeleteComment(callback: (deleteComment: { id: string, message: string }[]) => void): UnregisterFunction
+  receiveDeleteComment(callback: (deleteComment: { id: string; message: string }[]) => void): UnregisterFunction
   receiveSpeech(callback: (text: string, config: SpeechConfig) => void): UnregisterFunction
   receiveStopSpeech(callback: () => void): UnregisterFunction
   receivePageError(callback: (error: ServiceError) => void): UnregisterFunction
@@ -55,7 +90,7 @@ export interface Api {
   receiveDeleteUserDatas(callback: (ids: string[]) => void): UnregisterFunction
   receiveSurveyResult(callback: (result: SurveyResult) => void): UnregisterFunction
   receiveBeepSound(callback: (file: string, volume: number) => void): UnregisterFunction
-  receiveNotification(callback: (type: string, message: string) => void): UnregisterFunction
+  receiveNotification(callback: (type: AlertColor, message: string) => void): UnregisterFunction
   receivePinned(callback: (comment: Comment | null) => void): UnregisterFunction
   receiveBookmark(callback: (bookmark: Bookmark) => void): UnregisterFunction
   receiveProgress(callback: (message: string) => void): UnregisterFunction
@@ -64,6 +99,8 @@ export interface Api {
   receiveCommentNotification(callback: (data: CommentNotification) => void): UnregisterFunction
   receiveSetList(callback: (data: SetList) => void): UnregisterFunction
   receiveStockComments(callback: (data: Comment[]) => void): UnregisterFunction
+  receiveTimestamps(callback: (data: TimestampData) => void): UnregisterFunction
+  getService(serviceId: string): Promise<Service | null>
   getServices(): Promise<Service[]>
   createService(): Promise<Service>
   updateService(service: Service): void
@@ -74,7 +111,7 @@ export interface Api {
   openUserDirectory(templateName?: string): void
   resetSettings(type: keyof Config): void
   getVersion(): Promise<string>
-  isProMode(): Promise<{proMode: boolean, type: string, key: string}>
+  isProMode(): Promise<{ proMode: boolean; type: string; key: string }>
   getTemplatePath(): Promise<string>
   showContextMenu(type: string, ...args: any[]): void
   checkUpdate(): Promise<UpdateCheckResult>
@@ -112,11 +149,14 @@ export interface Api {
   completePlayingOrders(): Promise<OrderItem[]>
   dragFileStart(filename: string): void
   dragStaticFile(pathname: string): void
-  uploadTemplateResource(dir: string, files: {
-    name: string
-    type: string
-    buffer: ArrayBuffer
-  }[]): Promise<string[]>
+  uploadTemplateResource(
+    dir: string,
+    files: {
+      name: string
+      type: string
+      buffer: ArrayBuffer
+    }[]
+  ): Promise<string[]>
   deleteTemplateResource(dir: string, files: string[]): Promise<string[]>
   cloneTemplateResource(dir: string, files: string[]): Promise<string[]>
   saveWordPartyConfig(dir: string, config: GlobalConfig, items: WordPartyItem[]): Promise<void>
@@ -171,6 +211,7 @@ export interface Api {
   openChatWindow(serviceId: string): void
   getFontList(): Promise<string[]>
   openAnalysisWindow(): void
+  openTimeStampTool(): void
   getCommentLogFiles(): Promise<CommentLogFile[]>
   execAnalyze(conditions: SearchProps[], filters: SearchFilterProps): Promise<AnalysisResultData>
   getMusicBoxList(): Promise<MusicBox[]>
@@ -184,7 +225,7 @@ export interface Api {
   insertMusicList(boxId: number, params: MusicDataParams): Promise<RunResult>
   updateMusicList(id: number, params: MusicDataParams): Promise<void>
   deleteMusicList(ids: number[]): Promise<void>
-  
+
   getSetLists(): Promise<SetListArray[]>
   getCurrentSetListId(): Promise<number>
   getSetList(id: number): Promise<SetList>
@@ -201,8 +242,8 @@ export interface Api {
   getBouyomiChanVoiceList(): Promise<BouyomiChanVoiceListResponse>
   getAPIToken(): Promise<string>
   generateAPIToken(): Promise<string>
-  uploadTemplate(): Promise<{ status: 'succeeded' | 'error', path?: string, message: string}>
-  uploadTemplateFile(filepath: string): Promise<{ status: 'succeeded' | 'error', path?: string, message: string}>
+  uploadTemplate(): Promise<{ status: 'succeeded' | 'error'; path?: string; message: string }>
+  uploadTemplateFile(filepath: string): Promise<{ status: 'succeeded' | 'error'; path?: string; message: string }>
   getNews(): Promise<NewsData>
   showNews(): void
   getPlugins(): Promise<PluginList>
@@ -212,11 +253,13 @@ export interface Api {
   deleteTemplate(templateId: string): Promise<boolean>
   createReport(): void
   clearAllCache(): Promise<void>
-  changeThemeTemporarily(mode: 'light' | 'dark'):void
+  changeThemeTemporarily(mode: 'light' | 'dark'): void
   getRequests(): Promise<RequestItem[]>
   deleteRequests(ids: number[]): Promise<RequestItem[]>
   openCommentStock(): void
   openGiftWindow(): void
+  getTimestamps(): Promise<TimestampData>
+  updateTimestamps(data: Partial<TimestampData>): Promise<TimestampData>
   stockComment(comment: Comment): Promise<void>
   unstockComments(ids: string[]): Promise<void>
   getAllStockComments(): Promise<Comment[]>
@@ -227,12 +270,14 @@ export interface TestCommentOption {
   speech: boolean
   write: boolean
   newComment: boolean
+  repeater: boolean
+  subscribe: boolean
   serviceType: ServiceType
 }
 export interface ConnectedData {
-  comments: ExtendedComment[],
+  comments: ExtendedComment[]
   config: Config
-  services: Service[],
-  waitingList: OrderItem[],
+  services: Service[]
+  waitingList: OrderItem[]
   setList: SetListAPIResponse | NonNullable<object>
 }

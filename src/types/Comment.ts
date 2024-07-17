@@ -1,39 +1,39 @@
-import { External } from './External';
-import { Doneru } from './Doneru';
-import { Twitter } from './Twitter';
-import { Mixch } from './Mixch';
-import { BaseBadge } from './BaseResponse';
-import { YouTube } from "./YouTube"
-import { Twicas } from "./Twicas"
+import { External } from './External'
+import { Doneru } from './Doneru'
+import { Twitter } from './Twitter'
+import { Mixch } from './Mixch'
+import { BaseBadge } from './BaseResponse'
+import { YouTube } from './YouTube'
+import { Twicas } from './Twicas'
 import { Twitch } from './Twitch'
-import { NicoNama } from './NicoNama';
-import { Showroom } from './Showroom';
-import { BiliBili } from './BiliBili';
-import { RGBColor } from './Color';
-import { Service, ServiceList, ServiceType } from './Service';
-import { Mirrativ } from './Mirrativ';
-import { Tiktok } from './Tiktok';
-import { Streamlabs } from './Streamlabs';
-import { SystemCommentResponse } from './System';
-import { Mildom } from './Mildom';
-import { Kick } from './Kick';
-import { VTips } from './VTips';
+import { NicoNama } from './NicoNama'
+import { Showroom } from './Showroom'
+import { BiliBili } from './BiliBili'
+import { RGBColor } from './Color'
+import { Service, ServiceList, ServiceType } from './Service'
+import { Mirrativ } from './Mirrativ'
+import { Tiktok } from './Tiktok'
+import { Streamlabs } from './Streamlabs'
+import { SystemCommentResponse } from './System'
+import { Mildom } from './Mildom'
+import { Kick } from './Kick'
+import { VTips } from './VTips'
 
-
-export type CommentData = YouTube.CommentResponse
- | Twicas.CommentResponse
- | Twitch.CommentResponse
- | NicoNama.CommentResponse
- | Showroom.CommentResponse
- | BiliBili.CommentResponse
- | Mixch.CommentResponse
- | Mirrativ.CommentResponse
- | Mildom.CommentResponse
- | Kick.CommentResponse
- | Doneru.CommentResponse
- | Tiktok.CommentResponse
- | VTips.CommentResponse
- | External.CommentResponse
+export type CommentData =
+  | YouTube.CommentResponse
+  | Twicas.CommentResponse
+  | Twitch.CommentResponse
+  | NicoNama.CommentResponse
+  | Showroom.CommentResponse
+  | BiliBili.CommentResponse
+  | Mixch.CommentResponse
+  | Mirrativ.CommentResponse
+  | Mildom.CommentResponse
+  | Kick.CommentResponse
+  | Doneru.CommentResponse
+  | Tiktok.CommentResponse
+  | VTips.CommentResponse
+  | External.CommentResponse
 
 export interface BaseCommentMeta {
   no?: number
@@ -123,7 +123,8 @@ export interface Reaction {
   src?: string
   value: number
 }
-export type Comment = YouTubeComment
+export type Comment =
+  | YouTubeComment
   | TwicasComment
   | TwitchComment
   | NicoNamaComment

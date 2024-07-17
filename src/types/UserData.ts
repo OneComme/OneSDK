@@ -1,5 +1,5 @@
-import { BaseBadge } from './BaseResponse';
-import { ServiceType } from './Service';
+import { BaseBadge } from './BaseResponse'
+import { ServiceType } from './Service'
 export interface GiftAmount {
   unit?: string
   value: number

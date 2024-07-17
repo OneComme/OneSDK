@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/prefer-namespace-keyword */
-import { BaseResponse } from "./BaseResponse";
+import { BaseResponse } from './BaseResponse'
 
 export module Kick {
   export interface CurrentViewers {
-    livestream_id: number,
+    livestream_id: number
     viewers: number
   }
   export interface Chatroom {
@@ -46,7 +46,7 @@ export module Kick {
     order: number
     title: string
   }
-  
+
   export interface Plan {
     id: number
     channel_id: number
@@ -55,7 +55,7 @@ export module Kick {
     created_at: string
     updated_at: string
   }
-  
+
   export interface PreviousLivestream {
     id: number
     slug: string
@@ -76,12 +76,12 @@ export module Kick {
     categories: Category4[]
     video: Video
   }
-  
+
   export interface Thumbnail2 {
     src: string
     srcset: string
   }
-  
+
   export interface Category4 {
     id: number
     category_id: number
@@ -93,19 +93,19 @@ export module Kick {
     banner: Banner2
     category: Category5
   }
-  
+
   export interface Banner2 {
     responsive: string
     url: string
   }
-  
+
   export interface Category5 {
     id: number
     name: string
     slug: string
     icon: string
   }
-  
+
   export interface Video {
     id: number
     live_stream_id: number
@@ -119,7 +119,7 @@ export module Kick {
     views: number
     deleted_at: any
   }
-  
+
   export interface Verified {
     id: number
     channel_id: number
@@ -132,17 +132,17 @@ export module Kick {
     months: number
     badge_image: BadgeImage
   }
-  
+
   export interface BadgeImage {
     srcset: string
     src: string
   }
-  
+
   export interface BannerImage {
     responsive: string
     url: string
   }
-  
+
   export interface RecentCategory {
     id: number
     category_id: number
@@ -154,19 +154,19 @@ export module Kick {
     banner: Banner
     category: Category
   }
-  
+
   export interface Banner {
     responsive: string
     url: string
   }
-  
+
   export interface Category {
     id: number
     name: string
     slug: string
     icon: string
   }
-  
+
   export interface Livestream {
     id: number
     slug: string
@@ -186,12 +186,12 @@ export module Kick {
     categories: Category2[]
     tags: any[]
   }
-  
+
   export interface Thumbnail {
     responsive: string
     url: string
   }
-  
+
   export interface Category2 {
     id: number
     category_id: number
@@ -202,7 +202,7 @@ export module Kick {
     deleted_at: any
     category: Category3
   }
-  
+
   export interface Category3 {
     id: number
     name: string
@@ -281,18 +281,18 @@ export module Kick {
     slug: string
     identity: Identity
   }
-  
+
   export interface Identity {
     color: string
     badges: Badge[]
   }
-  
+
   export interface Badge {
     type: string
     text: string
     count?: number
   }
-  
+
   export interface ChatMessageData {
     id: string
     chatroom_id: number
@@ -311,8 +311,8 @@ export module Kick {
   }
   export interface LuckyUsersWhoGotGiftSubscriptionsEventData {
     channel: ChannelInfo
-    gifter_username: string 
-    usernames: string[] 
+    gifter_username: string
+    usernames: string[]
   }
   export interface GiftsLeaderboardUpdatedData {
     channel: ChannelInfo
@@ -358,10 +358,10 @@ export module Kick {
     created_at: string
   }
   export interface StreamerIsLiveData {
-     livestream: ISLiveStream
+    livestream: ISLiveStream
   }
   export interface StreamerIsLive {
-    event: 'App\\Events\\StreamerIsLive',
+    event: 'App\\Events\\StreamerIsLive'
     data: string
     channel: string
   }
@@ -401,7 +401,7 @@ export module Kick {
     id: number
     channel: Channel
   }
-  
+
   export interface StopStreamBroadcastData {
     livestream: StoppedLivestream
   }
@@ -418,13 +418,24 @@ export module Kick {
   }
   export interface SubscriptionEvent {
     event: 'App\\Events\\SubscriptionEvent'
-    data: string,
+    data: string
     channel: string
   }
-	export type RootResponse = ConnectionEstablished | SubscriptionSucceeded | ChatMessageEvent | ChatMessageReact | FollowersUpdate | ChatMessageDeleted | LuckyUsersWhoGotGiftSubscriptionsEvent | GiftsLeaderboardUpdated | StreamerIsLive | SubscriptionEvent 
-    | ChatMessageDeletedEvent | StopStreamBroadcast
-	export interface CommentResponse extends BaseResponse {
-		origin: any
+  export type RootResponse =
+    | ConnectionEstablished
+    | SubscriptionSucceeded
+    | ChatMessageEvent
+    | ChatMessageReact
+    | FollowersUpdate
+    | ChatMessageDeleted
+    | LuckyUsersWhoGotGiftSubscriptionsEvent
+    | GiftsLeaderboardUpdated
+    | StreamerIsLive
+    | SubscriptionEvent
+    | ChatMessageDeletedEvent
+    | StopStreamBroadcast
+  export interface CommentResponse extends BaseResponse {
+    origin: any
     anonymity: boolean
-	}
+  }
 }

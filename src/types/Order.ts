@@ -1,5 +1,5 @@
-import { ServiceType } from './Service';
-import { UserNameData } from './UserData';
+import { ServiceType } from './Service'
+import { UserNameData } from './UserData'
 export interface OrderItem {
   id: string // userid
   commentId: string

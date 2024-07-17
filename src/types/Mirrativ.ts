@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/prefer-namespace-keyword */
-import { BaseResponse } from "./BaseResponse";
+import { BaseResponse } from './BaseResponse'
 
 export module Mirrativ {
   /*
@@ -166,175 +166,173 @@ export module Mirrativ {
   "collab_invitation": null,
   "orientation_v2": "1"
 }*/
-  export interface UserLevel {
-  }
+  export interface UserLevel {}
   export interface Card {
-    site: string;
-    image_url: string;
-    title: string;
-    description: string;
+    site: string
+    image_url: string
+    title: string
+    description: string
   }
   export interface Twitter {
-    maxlength: number;
-    card: Card;
-    text: string;
-    placeholder: string;
+    maxlength: number
+    card: Card
+    text: string
+    placeholder: string
   }
   export interface Others {
-    text: string;
+    text: string
   }
   export interface Shares {
-    twitter: Twitter;
-    others: Others;
-    title: string;
-    description: string;
+    twitter: Twitter
+    others: Others
+    title: string
+    description: string
   }
   export interface Status {
-    msg: string;
-    ok: number;
-    error: string;
-    captcha_url: string;
-    error_code: number;
-    message: string;
+    msg: string
+    ok: number
+    error: string
+    captcha_url: string
+    error_code: number
+    message: string
   }
   export interface App {
-    is_my_app: number;
-    icon_url: string;
-    store_url: string;
-    app_id: string;
-    is_app_user_id_hidden: number;
-    is_holding_campaign: number;
-    short_title: string;
-    is_category: number;
-    title: string;
-    id: number;
-    app_user_id_label: string;
+    is_my_app: number
+    icon_url: string
+    store_url: string
+    app_id: string
+    is_app_user_id_hidden: number
+    is_holding_campaign: number
+    short_title: string
+    is_category: number
+    title: string
+    id: number
+    app_user_id_label: string
   }
   export interface Timeline {
-    app: App;
-    timestamp: number;
-    title: string;
+    app: App
+    timestamp: number
+    title: string
   }
-  export interface AnnouncementUrls {
-  }
+  export interface AnnouncementUrls {}
   export interface Badge {
-    image_url: string;
-    small_image_url: string;
+    image_url: string
+    small_image_url: string
   }
   export interface SeasonRating {
-    class_name: string;
-    icon_url: string;
+    class_name: string
+    icon_url: string
   }
   export interface Owner {
-    share_url: string;
-    is_able_continuous_stream_holiday: number;
-    profile_image_url: string;
-    birthday_from: number;
-    is_birthday_editable: number;
-    badges: Badge[];
-    is_new: number;
-    is_cheerleader: number;
-    catalog_label_image_url: string;
-    birthday: string;
-    season_rating: SeasonRating;
-    birthday_to: number;
-    name: string;
-    is_birthday: number;
-    birthday_editable_date: string;
-    description: string;
-    properties: any[];
-    is_continuous_streamer: number;
-    user_id: string;
-    live_request_num: string;
-    onlive?: any;
+    share_url: string
+    is_able_continuous_stream_holiday: number
+    profile_image_url: string
+    birthday_from: number
+    is_birthday_editable: number
+    badges: Badge[]
+    is_new: number
+    is_cheerleader: number
+    catalog_label_image_url: string
+    birthday: string
+    season_rating: SeasonRating
+    birthday_to: number
+    name: string
+    is_birthday: number
+    birthday_editable_date: string
+    description: string
+    properties: any[]
+    is_continuous_streamer: number
+    user_id: string
+    live_request_num: string
+    onlive?: any
   }
   export interface LiveInfo {
-    avatar_body_image_url: string;
-    streaming_url_hls: string;
-    is_streaming_collab_enabled: number;
-    is_gift_supported: number;
-    mirroring?: any;
-    user_app_status: any[];
-    live_id: string;
-    is_mirrorable: number;
-    app_title: string;
-    description: string;
-    total_viewer_num: number;
-    thumbnail_image_url: string;
-    is_archive: number;
-    is_singing_karaoke: number;
-    title: string;
-    max_online_viewer_num: number;
-    is_emomo_visible: boolean;
-    created_at: number;
-    preview_blur_image_url: string;
-    blur_image_url: string;
-    started_at: number;
-    is_live: number;
-    live_mos?: any;
-    thumbnail_blur_image_url: string;
-    image_url_without_letterbox: string;
-    user_level: UserLevel;
-    is_connected_streaming_collab: number;
-    diamonds: number;
-    joined_live_thumbnail_image_url: string;
-    template_comments: any[];
-    broadcast_host: string;
-    tags: any[];
-    live_user_key: string;
-    bcsvr_key: string;
-    app_user_id_label: string;
-    heartbeated_at: number;
-    is_private: number;
-    shares: Shares;
-    collab_supported: number;
-    sticker_enabled: number;
-    collab_has_vacancy: number;
-    stamp_num: number;
-    streaming_key: string;
-    linked_live?: any;
-    collab_online_user_num: number;
-    remaining_paid_coins: number;
-    share_image_url: string;
-    broadcast_key: string;
-    gift_ranking_url: string;
-    collab_mos?: any;
-    remaining_coins: number;
-    archive_url_hls: string;
-    sticker_category_ids: any[];
-    ended_at: number;
-    online_user_num: number;
-    announcement_url: string;
-    anniversary_bot_comment: string;
-    is_emomo_wipe_enabled: number;
-    share_url: string;
-    status: Status;
-    orientation: number;
-    is_app_user_id_hidden: number;
-    app_id: string;
-    app_is_category: number;
-    app_icon_urls: string[];
-    timeline: Timeline[];
-    enable_clap: number;
-    remaining_free_coins: number;
-    is_paid_sticker_supported: number;
-    announcement_urls: AnnouncementUrls;
-    sticker_num: number;
-    app_short_title: string;
-    max_collab_user_num: number;
-    comment_num: number;
-    owner: Owner;
-    recommend_sticker_ids: any[];
-    broadcast_port: number;
-    sticker_display_type: number;
-    archive_comment_enabled: number;
-    user_label_image_url: string;
-    streaming_url_edge: string;
-    collab_enabled: number;
-    gift_appeal_popup_image?: any;
-    image_url: string;
-    collab_invitation?: any;
-    orientation_v2: string;
+    avatar_body_image_url: string
+    streaming_url_hls: string
+    is_streaming_collab_enabled: number
+    is_gift_supported: number
+    mirroring?: any
+    user_app_status: any[]
+    live_id: string
+    is_mirrorable: number
+    app_title: string
+    description: string
+    total_viewer_num: number
+    thumbnail_image_url: string
+    is_archive: number
+    is_singing_karaoke: number
+    title: string
+    max_online_viewer_num: number
+    is_emomo_visible: boolean
+    created_at: number
+    preview_blur_image_url: string
+    blur_image_url: string
+    started_at: number
+    is_live: number
+    live_mos?: any
+    thumbnail_blur_image_url: string
+    image_url_without_letterbox: string
+    user_level: UserLevel
+    is_connected_streaming_collab: number
+    diamonds: number
+    joined_live_thumbnail_image_url: string
+    template_comments: any[]
+    broadcast_host: string
+    tags: any[]
+    live_user_key: string
+    bcsvr_key: string
+    app_user_id_label: string
+    heartbeated_at: number
+    is_private: number
+    shares: Shares
+    collab_supported: number
+    sticker_enabled: number
+    collab_has_vacancy: number
+    stamp_num: number
+    streaming_key: string
+    linked_live?: any
+    collab_online_user_num: number
+    remaining_paid_coins: number
+    share_image_url: string
+    broadcast_key: string
+    gift_ranking_url: string
+    collab_mos?: any
+    remaining_coins: number
+    archive_url_hls: string
+    sticker_category_ids: any[]
+    ended_at: number
+    online_user_num: number
+    announcement_url: string
+    anniversary_bot_comment: string
+    is_emomo_wipe_enabled: number
+    share_url: string
+    status: Status
+    orientation: number
+    is_app_user_id_hidden: number
+    app_id: string
+    app_is_category: number
+    app_icon_urls: string[]
+    timeline: Timeline[]
+    enable_clap: number
+    remaining_free_coins: number
+    is_paid_sticker_supported: number
+    announcement_urls: AnnouncementUrls
+    sticker_num: number
+    app_short_title: string
+    max_collab_user_num: number
+    comment_num: number
+    owner: Owner
+    recommend_sticker_ids: any[]
+    broadcast_port: number
+    sticker_display_type: number
+    archive_comment_enabled: number
+    user_label_image_url: string
+    streaming_url_edge: string
+    collab_enabled: number
+    gift_appeal_popup_image?: any
+    image_url: string
+    collab_invitation?: any
+    orientation_v2: string
   }
   /*
   {
@@ -399,34 +397,34 @@ export module Mirrativ {
 }
 */
   export interface Gift {
-    ac: string;
-    avatar_body_image_url: string;
-    became_cheerleader: number;
-    burl: string;
-    coins: string;
-    collab_streamer_ac: string;
-    count: string;
-    gift_id: string;
-    gift_large_image_url: string;
-    gift_small_image_url: string;
-    gift_title: string;
-    gift_type: string;
-    ils: number;
-    is_cheerleader: number;
-    is_moderator: number;
-    is_streaming_collab: number;
-    iurl: string;
-    live_sent_gift_id?: string;
-    nameplate_enabled: string;
-    p: number;
-    pause_duration: string;
-    rankings: any[];
-    should_play_animation: number;
-    slot_id: number;
-    speech: string;
-    t: number; //35?
-    total_gift_coins: string;
-    u: string;
+    ac: string
+    avatar_body_image_url: string
+    became_cheerleader: number
+    burl: string
+    coins: string
+    collab_streamer_ac: string
+    count: string
+    gift_id: string
+    gift_large_image_url: string
+    gift_small_image_url: string
+    gift_title: string
+    gift_type: string
+    ils: number
+    is_cheerleader: number
+    is_moderator: number
+    is_streaming_collab: number
+    iurl: string
+    live_sent_gift_id?: string
+    nameplate_enabled: string
+    p: number
+    pause_duration: string
+    rankings: any[]
+    should_play_animation: number
+    slot_id: number
+    speech: string
+    t: number //35?
+    total_gift_coins: string
+    u: string
   }
   /*
   {
@@ -445,18 +443,18 @@ export module Mirrativ {
   }
   */
   export interface Enter {
-    online_viewer_num: number;
-    speech: string;
-    d: number;
-    ac: string;
-    burl: string;
-    iurl: string;
-    created_at: number;
-    u: string;
-    is_moderator: number;
-    is_cheerleader: number;
-    lci: number;
-    t: 3;
+    online_viewer_num: number
+    speech: string
+    d: number
+    ac: string
+    burl: string
+    iurl: string
+    created_at: number
+    u: string
+    is_moderator: number
+    is_cheerleader: number
+    lci: number
+    t: 3
   }
   export interface Meta {
     ends_at?: number
@@ -489,38 +487,37 @@ export module Mirrativ {
   }
   */
   export interface Comment {
-    push_image_url: string;
-    speech: string;
-    d: number;
-    ac: string;
-    burl: string;
-    iurl: string;
-    cm: string;
-    created_at: number;
-    u: string;
-    is_moderator: number;
-    is_cheerleader: number;
-    lci: number;
-    t: 1;
+    push_image_url: string
+    speech: string
+    d: number
+    ac: string
+    burl: string
+    iurl: string
+    cm: string
+    created_at: number
+    u: string
+    is_moderator: number
+    is_cheerleader: number
+    lci: number
+    t: 1
   }
   export interface Follow {
-    d: number;
-    ac: string;
-    burl: string;
-    iurl: string;
-    cm: string;
-    created_at: number;
-    u: string;
-    lci: number;
-    t: 4;
+    d: number
+    ac: string
+    burl: string
+    iurl: string
+    cm: string
+    created_at: number
+    u: string
+    lci: number
+    t: 4
   }
   export type RootResponse = Comment | Gift | Enter | Follow | Meta | StreamingEnd
   export interface CommentResponse extends BaseResponse {
     isModerator: boolean
-		commentVisible?: boolean
+    commentVisible?: boolean
     price?: number
     giftId?: string
     origin: any
   }
 }
-

@@ -57,7 +57,7 @@ export module VTips {
   }
   export interface DiffResponse {
     latestChat: LatestChat
-    deletedChats: DeleteChat[] 
+    deletedChats: DeleteChat[]
     updatedUsers: UpdateUser[]
     isEnabledTips: boolean
   }
@@ -75,19 +75,19 @@ export module VTips {
     contentId: string
     type: string
     thumbnail: {
-        720: string
-        180: string
-        36: string
-        1080: string
-        360: string
-        90: string
-    },
-    title: string,  // 配信タイトル
+      720: string
+      180: string
+      36: string
+      1080: string
+      360: string
+      90: string
+    }
+    title: string // 配信タイトル
     broadcastStatus: BroadcastStatusType
-    publishedScope: number    // 0: 公開, 1: フォロワー限定, 2: プライベート
+    publishedScope: number // 0: 公開, 1: フォロワー限定, 2: プライベート
     issuedAt: string // 配信開始日時（予約配信で配信開始前は予約日時）
     isEnabledChats: boolean // チャット機能が有効かどうか
-    isEnabledTips: boolean  // チップ機能が有効かどうか
+    isEnabledTips: boolean // チップ機能が有効かどうか
     isEnabledComments: boolean
   }
   export interface StreamingInfo {
@@ -99,12 +99,12 @@ export module VTips {
   }
 
   export interface CommentResponse extends BaseResponse {
-		tipInfo?: TipInfo | VcoinTipInfo
-		price?: number
-		isStreamer: boolean
+    tipInfo?: TipInfo | VcoinTipInfo
+    price?: number
+    isStreamer: boolean
     isOwner: boolean
     isFreeGift?: boolean
     paidText?: string
-		colors?: Colors
-	}
+    colors?: Colors
+  }
 }

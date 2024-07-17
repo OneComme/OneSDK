@@ -23,7 +23,6 @@ export interface MusicDataSearchResultItem extends MusicData {
 }
 export type MusicDataSearchResult = FuseResult<MusicDataSearchResultItem>
 
-
 export interface SetListArray {
   id: number
   name: string
@@ -34,7 +33,7 @@ export interface SetListAPIResponse {
   id: number
   name: string
   items: MusicData[]
-  completed: MusicData[] 
+  completed: MusicData[]
 }
 export interface RequestItem {
   id: number

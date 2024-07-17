@@ -1,22 +1,22 @@
-import { RGBColor } from './Color';
-import { SoundConfig } from './Config';
+import { RGBColor } from './Color'
+import { SoundConfig } from './Config'
 export interface ServiceList {
-  youtube: 'youtube',
-  twicas: 'twicas',
-  twitch: 'twitch',
-  niconama: 'niconama',
-  showroom: 'showroom',
-  bilibili: 'bilibili',
-  mirrativ: 'mirrativ',
-  mixch: 'mixch',
-  twitter: 'twitter',
-  doneru: 'doneru',
-  tiktok: 'tiktok',
-  streamlabs: 'streamlabs',
-  mildom: 'mildom',
-  kick: 'kick',
-  vtips: 'vtips',
-  external: 'external',
+  youtube: 'youtube'
+  twicas: 'twicas'
+  twitch: 'twitch'
+  niconama: 'niconama'
+  showroom: 'showroom'
+  bilibili: 'bilibili'
+  mirrativ: 'mirrativ'
+  mixch: 'mixch'
+  twitter: 'twitter'
+  doneru: 'doneru'
+  tiktok: 'tiktok'
+  streamlabs: 'streamlabs'
+  mildom: 'mildom'
+  kick: 'kick'
+  vtips: 'vtips'
+  external: 'external'
   system: 'system'
 }
 export type ServiceType = keyof ServiceList
@@ -34,16 +34,16 @@ export interface Service {
   meta?: ServiceMeta
 }
 export interface ServiceError {
-  id: number;
-  url: string;
-  method: string;
-  webContentsId?: number;
-  referrer: string;
-  timestamp: number;
-  responseHeaders?: Record<string, string[]>;
-  statusCode: number;
-  statusLine: string;
-  error: string;
+  id: number
+  url: string
+  method: string
+  webContentsId?: number
+  referrer: string
+  timestamp: number
+  responseHeaders?: Record<string, string[]>
+  statusCode: number
+  statusLine: string
+  error: string
 }
 export interface ServiceOptions {
   yncTalker?: string
@@ -68,7 +68,8 @@ export interface ServiceMeta {
   upVote?: string // youtube
   star?: number // showroom
   follower?: number // twitch, showroom
-  points?: { // niconama
+  points?: {
+    // niconama
     gift?: number
     ad?: number
   }

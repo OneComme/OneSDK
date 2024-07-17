@@ -1,5 +1,5 @@
 import { ServiceType } from './Service'
-export type PositionType = 'pixel' | 'percentage' 
+export type PositionType = 'pixel' | 'percentage'
 export type RangeValue = [number, number]
 export type PopperItemType = 'default' | 'emoji' | 'image'
 export interface WordPartyExecParams {
@@ -82,9 +82,16 @@ export interface ResourceParam {
 export interface ResourceParams {
   [key: string]: ResourceParam
 }
-export type TextBasePosition = 'topLeft' | 'top' | 'topRight'
-  | 'left' | 'center' | 'right'
-  | 'bottomLeft' | 'bottom' | 'bottomRight'
+export type TextBasePosition =
+  | 'topLeft'
+  | 'top'
+  | 'topRight'
+  | 'left'
+  | 'center'
+  | 'right'
+  | 'bottomLeft'
+  | 'bottom'
+  | 'bottomRight'
 export interface NotifyItemConfig {
   lifeTime: number
   images: string[]
@@ -176,9 +183,9 @@ export interface ThrowingItemConfig {
   spread: number // 投げたもののばらつき具合
   parabolic: number // 投げつけの放物具合
   scattering: number // 当たったあとのばらつき具合
-  scaling: number    // 投げるモノの距離感
-  perMeter: number   // 当たったあとの抵抗具合
-  duration: number   // 投げつける時間
+  scaling: number // 投げるモノの距離感
+  perMeter: number // 当たったあとの抵抗具合
+  duration: number // 投げつける時間
   penetration: boolean // 貫通
   imageScale: number
   imageSize?: number
@@ -187,8 +194,24 @@ export interface ThrowingItemConfig {
   autoPickLimit?: number
   contents?: string[]
 }
-export type WordPartyItemOption = PopperItemConfig | DropperItemConfig | NotifyItemConfig | ConfettiItemConfig | ThrowingItemConfig
-export type WordPartyEffect = 'popper' | 'dropper' | 'notifier' | 'confetti' | 'throwing'
+export interface ConnectionItem {
+  id: string
+  targetId: string
+  delay: number
+  weight?: number
+}
+export interface ConnectorItemConfig {
+  items: ConnectionItem[]
+  lotteryItems: ConnectionItem[]
+}
+export type WordPartyItemOption =
+  | PopperItemConfig
+  | DropperItemConfig
+  | NotifyItemConfig
+  | ConfettiItemConfig
+  | ThrowingItemConfig
+  | ConnectorItemConfig
+export type WordPartyEffect = 'popper' | 'dropper' | 'notifier' | 'confetti' | 'throwing' | 'connector'
 export type Comparison = 'equal' | 'higher' | 'lower'
 export interface GiftParams {
   unit: string
