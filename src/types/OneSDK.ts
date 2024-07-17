@@ -7,6 +7,7 @@ import { RequestItem, SetListAPIResponse } from './Setlist'
 import { Comment } from './Comment'
 import { SendType } from './Api';
 import { WordPartyExecParams } from './WordParty';
+import { YouTube } from './YouTube';
 export type SubscribeAction = 'comments' | 'meta'
 export interface MetaResponse {
   service: Service
@@ -32,14 +33,18 @@ export interface OneSDKConfig {
   includeNames: string[] | null
   excludeNames: string[] | null
   lifeTime: number
+  permissions: null | (SendType | 'all')[] 
 }
-export interface PublishActions {
+type SendActions = {
+  [key in SendType]: any
+}
+export interface PublishActions extends SendActions {
   connected: {
-    config: Config
-    services: Service[]
-    comments: Comment[]
-    waitingList: OrderItem[]
-    setList: SetListAPIResponse
+    config?: Config
+    services?: Service[]
+    comments?: Comment[]
+    waitingList?: OrderItem[]
+    setList?: SetListAPIResponse
   }
   comments: Comment[]
   meta: { service: Service, meta: ServiceMeta }
@@ -87,49 +92,84 @@ export interface CommentsAction {
     options?: CommentSenderOption
   }
 }
-export interface ClearAction {
+
+export interface BaseAction {
+  type: SendType
+}
+export interface ClearAction extends BaseAction {
   type: 'clear'
 }
-export interface MetaAction {
+export interface MetaAction extends BaseAction {
   type: 'meta'
-  data: any
+  data: ServiceMeta
 }
-export interface DeleteAction {
+export interface DeleteAction extends BaseAction {
   type: 'deleted'
   data: DeletedData[]
 }
-export interface ConfigAction {
+export interface ConfigAction extends BaseAction {
   type: 'config'
   data: Config
 }
-export interface ClearMetaAction {
+export interface ClearMetaAction extends BaseAction {
   type: 'meta.clear'
   data: string
 }
-export interface UserDataAction {
+export interface UserDataAction extends BaseAction {
   type: 'userDatas'
   data: UserStoreData
 }
-export interface ServiceAction {
+export interface ServiceAction extends BaseAction {
   type: 'services'
   data: Service[]
 }
-export interface BookmarkAction {
+export interface BookmarkAction extends BaseAction {
   type: 'bookmarked'
   data: BookmarkData
 }
-export interface PinnedAction {
+export interface PinnedAction extends BaseAction {
   type: 'pinned'
-  data: Comment
+  data: Comment | null
 }
-export interface WaitingListAction {
+export interface WaitingListAction extends BaseAction {
   type: 'waitingList'
   data: OrderItem[]
 }
-export interface SetListAction {
+export interface SetListAction extends BaseAction {
   type: 'setList'
   data: SetListAPIResponse
 }
+
+export interface WpUpdateAction extends BaseAction {
+  type: 'wp.update'
+  data: { dir: string }
+}
+
+export interface NotificationAction extends BaseAction {
+  type: 'notification'
+  data: { type: string; message: string }
+}
+export interface ReactionAction extends BaseAction {
+  type: 'reactions'
+  data: { reactions: Reaction[]; effect: boolean }
+}
+export interface SetlistRequestAction extends BaseAction {
+  type: 'setList.request'
+  data: RequestItem[]
+}
+export interface YouTubeSurveyStartAction extends BaseAction {
+  type: 'yt.survey.start'
+  data: YouTube.SurveyData
+}
+export interface YouTubeSurveyUpdateAction extends BaseAction {
+  type: 'yt.survey.update'
+  data: YouTube.SurveyData
+}
+export interface YouTubeSurveyFinishAction extends BaseAction {
+  type: 'yt.survey.finish'
+  data: YouTube.SurveyResult
+}
+
 export type Action = ConnectedAction 
   | CommentsAction 
   | DeleteAction 
@@ -143,3 +183,9 @@ export type Action = ConnectedAction
   | PinnedAction 
   | WaitingListAction 
   | SetListAction
+  | NotificationAction
+  | ReactionAction
+  | SetlistRequestAction
+  | YouTubeSurveyStartAction
+  | YouTubeSurveyUpdateAction
+  | YouTubeSurveyFinishAction
