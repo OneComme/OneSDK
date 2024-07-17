@@ -1,4 +1,3 @@
-import { AlertColor } from '@mui/material'
 import { RunResult } from 'better-sqlite3'
 import { AnalysisResultData, CommentLogFile, SearchFilterProps, SearchProps } from './Analysis'
 import { LoginStates } from './Auth'
@@ -90,7 +89,7 @@ export interface Api {
   receiveDeleteUserDatas(callback: (ids: string[]) => void): UnregisterFunction
   receiveSurveyResult(callback: (result: SurveyResult) => void): UnregisterFunction
   receiveBeepSound(callback: (file: string, volume: number) => void): UnregisterFunction
-  receiveNotification(callback: (type: AlertColor, message: string) => void): UnregisterFunction
+  receiveNotification(callback: (type: string, message: string) => void): UnregisterFunction
   receivePinned(callback: (comment: Comment | null) => void): UnregisterFunction
   receiveBookmark(callback: (bookmark: Bookmark) => void): UnregisterFunction
   receiveProgress(callback: (message: string) => void): UnregisterFunction
