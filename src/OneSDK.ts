@@ -12,27 +12,32 @@ import { SetListAPIResponse } from './types/Setlist';
 import { AppInfo } from './types/App'
 import { TemplateData } from './types/Template'
 
+export const DEFAULT_CONFIG = {
+  protocol: 'local',
+  port: 11180,
+  host: 'localhost',
+  pathname: '',
+  mode: 'all',
+  disabledDelay: false,
+  intervalTime: 5000,
+  maxQueueInterval: 150,
+  reconnectInterval: 5000,
+  commentLimit: 100,
+  requestInterval: 1500,
+  includes: null,
+  excludes: null,
+  includeIds: null,
+  excludeIds: null,
+  includeNames: null,
+  excludeNames: null,
+  lifeTime: Infinity,
+  permissions: null
+} as const
+
 export class OneSDK {
-  private _config: OneSDKConfig = {
-    protocol: 'local',
-    port: 11180,
+  private _config: OneSDKConfig = Object.assign({}, DEFAULT_CONFIG, {
     host: (!location.hostname || location.hostname === 'absolute') ? 'localhost' : location.hostname,
-    pathname: '',
-    mode: 'all',
-    disabledDelay: false,
-    intervalTime: 5000,
-    maxQueueInterval: 150,
-    reconnectInterval: 5000,
-    commentLimit: 100,
-    requestInterval: 1500,
-    includes: null,
-    excludes: null,
-    includeIds: null,
-    excludeIds: null,
-    includeNames: null,
-    excludeNames: null,
-    lifeTime: Infinity,
-  }
+  })
   private _subscriberId = 0
   private _checkTimerId = -1
   private _tickTimerId = -1
@@ -81,6 +86,7 @@ export class OneSDK {
     this._config.host = this.getStyleVariable<string>('--one-sdk-host', this._config.host)
     this._config.pathname = this.getStyleVariable<string>('--one-sdk-pathname', this._config.pathname)
     this._config.port = this.getStyleVariable<number>('--one-sdk-port', this._config.port, parseInt)
+    this._config.permissions = this.getStyleVariable<string[] | null>('--one-sdk-permissions', this._config.permissions, this._splitValues) as (SendType | 'all')[] | null
     
     this._config.includes = this.getStyleVariable<string[] | null>('--one-sdk-includes', this._config.includes, this._splitValues)
     this._config.excludes = this.getStyleVariable<string[] | null>('--one-sdk-excludes', this._config.excludes, this._splitValues)
@@ -123,6 +129,9 @@ export class OneSDK {
     if (url.searchParams.get('lifeTime')) {
       this._config.lifeTime = parseInt(url.searchParams.get('lifeTime') as string)
     }
+    if (url.searchParams.get('permissions')) {
+      this._config.permissions = url.searchParams.getAll('permissions') as (SendType | 'all')[]
+    }
   }
   private _tick = () => {
     window.clearTimeout(this._tickTimerId)
@@ -161,7 +170,8 @@ export class OneSDK {
     }
     return defaultValue
   }
-  private _splitValues(values: string): string[] {
+  private _splitValues(values: string | null): string[] | null {
+    if (!values) return null
     const result = values.match(/\w+|"(?:\\"|[^"])+"/g);
     if (!result) return []
     return result.map(item => {

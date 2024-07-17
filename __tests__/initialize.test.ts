@@ -1,5 +1,5 @@
 import './lib/_common'
-import { OneSDK } from '../src/OneSDK'
+import { DEFAULT_CONFIG, OneSDK } from '../src/OneSDK'
 
 test('defined', () => {
   expect(OneSDK).toBeDefined()
@@ -11,26 +11,7 @@ test('ready', async() => {
 describe('initialize', () => {
   test('default value', async() => {
     const sdk = new OneSDK()
-    expect(sdk.config).toEqual({
-      protocol: 'local',
-      port: 11180,
-      host: 'localhost',
-      pathname: '',
-      mode: 'all',
-      disabledDelay: false,
-      intervalTime: 5000,
-      maxQueueInterval: 150,
-      reconnectInterval: 5000,
-      commentLimit: 100,
-      requestInterval: 1500,
-      includes: null,
-      excludes: null,
-      includeIds: null,
-      excludeIds: null,
-      includeNames: null,
-      excludeNames: null,
-      lifeTime: Infinity,
-    })
+    expect(sdk.config).toEqual(DEFAULT_CONFIG)
   })
   test('absolute hostname', async() => {
     location.href = 'http://absolute/templates/basic/'

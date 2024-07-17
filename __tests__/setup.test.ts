@@ -1,8 +1,13 @@
 import './lib/_common'
-import { OneSDK } from '../src/OneSDK'
+import { DEFAULT_CONFIG, OneSDK } from '../src/OneSDK'
 import { OneSDKConfig } from '../src/types/OneSDK'
 
 describe('setup', () => {
+  test('default config', async() => {
+    const sdk = new OneSDK()
+    sdk.setup()
+    expect(sdk.config).toEqual(DEFAULT_CONFIG)
+  })
   test('overwrite config by params', async() => {
     const sdk = new OneSDK()
     const overwriteConf: OneSDKConfig = {
@@ -24,6 +29,7 @@ describe('setup', () => {
       includeNames: ['あああ', 'いいい'],
       excludeNames: ['ううう', 'えええ'],
       lifeTime: 20000,
+      permissions: null
     }
     sdk.setup(overwriteConf)
     expect(sdk.config).toEqual(overwriteConf)
@@ -44,6 +50,7 @@ describe('setup', () => {
         --one-sdk-include-names: "あああ", "いいい";
         --one-sdk-exclude-names: "ううう", "えええ";
         --one-sdk-life-time: 20000;
+        --one-sdk-permissions: "comments", "reactions";
       }
     `
     window.document.head.appendChild(style)
@@ -69,6 +76,7 @@ describe('setup', () => {
       includeNames: ['あああ', 'いいい'],
       excludeNames: ['ううう', 'えええ'],
       lifeTime: 20000,
+      permissions: ['comments', 'reactions'],
     })
   })
   test('overwrite config by searchParams', async() => {
@@ -90,6 +98,8 @@ describe('setup', () => {
       ['excludeNames', 'ううう'],
       ['excludeNames', 'えええ'],
       ['lifeTime', '20000'],
+      ['permissions', 'comments'],
+      ['permissions', 'reactions'],
     ])
     location.href = `http://localhost:11180/templates/basic/?${searchParams.toString()}`
     const sdk = new OneSDK()
@@ -115,6 +125,7 @@ describe('setup', () => {
       includeNames: ['あああ', 'いいい'],
       excludeNames: ['ううう', 'えええ'],
       lifeTime: 20000,
+      permissions: ['comments', 'reactions'],
     })
   })
   test('insert css link', async() => {
