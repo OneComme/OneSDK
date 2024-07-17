@@ -1,3 +1,4 @@
+import { PERMISSION_TEMPLETE_TYPE, PERMISSIONS } from './permissions';
 import { SendType } from './types/Api';
 
 import axios, { AxiosRequestConfig } from 'axios'
@@ -11,6 +12,7 @@ import { OrderItem } from './types/Order';
 import { SetListAPIResponse } from './types/Setlist';
 import { AppInfo } from './types/App'
 import { TemplateData } from './types/Template'
+import { usePermission } from './permissions'
 
 export const DEFAULT_CONFIG = {
   protocol: 'local',
@@ -52,6 +54,10 @@ export class OneSDK {
   get config(): Readonly<OneSDKConfig> {
     return Object.freeze({...this._config })
   }
+  get PERM() {
+    return PERMISSION_TEMPLETE_TYPE
+  }
+  usePermission = usePermission
   ready(): Promise<void> {
     axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
     if (document.readyState === 'complete') {
@@ -318,7 +324,8 @@ export class OneSDK {
     if (this.connected) return
     await this.ready()
     if (['local', 'ws'].includes(this._config.protocol)) {
-      const socket = new WebSocket(`ws://${this._config.host}:${this._config.port}/sub`);
+      const permissions = this._config.permissions || ['all']
+      const socket = new WebSocket(`ws://${this._config.host}:${this._config.port}/sub?p=${permissions.join(',')}`);
       socket.addEventListener('open', (e) => {
         this._connected = true
       })
