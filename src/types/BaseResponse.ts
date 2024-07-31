@@ -1,3 +1,5 @@
+import { SystemMessageType } from './System'
+
 export interface BaseBadge {
   url: string
   label: string
@@ -32,4 +34,12 @@ export interface BaseResponse {
   isRepeater?: boolean
   commentVisible?: boolean
   meta?: CommentMeta
+}
+
+export interface BaseSystemResponse {
+  id: string
+  isGift?: boolean
+  isFreeGift?: boolean
+  type?: SystemMessageType
+  message: string
 }

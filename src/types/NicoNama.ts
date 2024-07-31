@@ -1,127 +1,15 @@
-import { BaseResponse } from './BaseResponse'
+import { BaseResponse, BaseSystemResponse } from './BaseResponse'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace NicoNama {
-  export interface Icon {
-    urls: {
-      [size: string]: string
-    }
-  }
-  export interface User {
-    description: string
-    hasPremiumOrStrongerRights: false
-    hasSuperPremiumOrStrongerRights: false
-    icons: Icon
-    nickname: string
-    userId: string
-  }
-  export interface Meta {
-    status: number
-    hasNext: boolean
-    maxId: string
-    minId: string
-    errors: any[]
-  }
-  export interface WatchContext {
-    parameter: Parameter
-  }
-
-  export interface Parameter {
-    nicorepo: string
-  }
-
-  export interface Actor {
-    url: string
-    name: string
-    icon: string
-  }
-  export interface DaumObject {
-    type: string
-    url: string
-    name: string
-    image: string
-  }
-  export interface Daum {
-    id: string
-    updated: string
-    watchContext: WatchContext
-    actor: Actor
-    title: string
-    object: DaumObject
-  }
-  export interface UserEntryResponse {
-    meta: Meta
-    data: Daum[]
-    errors: any[]
-  }
-  export interface UserDataResponse {
-    data: User[]
-    meta: {
-      status: number
-    }
-  }
-  export interface Chat {
-    name?: string
-    anonymity?: number
-    content: string
-    date: number
-    date_usec: number
-    mail?: string
-    no: number
-    premium: number
-    thread: string
-    user_id: string
-    vpos: number
-  }
-
-  export interface Thread {
-    last_res: number
-    resultcode: number
-    revision: number
-    server_time: number
-    thread: string
-    ticket: string
-  }
   export interface MetaResponse {
     type: string
     data: any
-  }
-  export interface RootResponse {
-    chat?: Chat
-    thread?: Thread
-  }
-  export interface EmotionHistoryElement {
-    emotionId: string
-    name: string
-    thumbnailUrl: string
-    seqNum: number
-    staminaSum: number
-  }
-  export interface EmotionData {
-    contentType: string
-    contentId: string
-    liveCycle: string
-    isAvailable: boolean
-    isPublishable: boolean
-    hasReachedEmotionLimit: boolean
-    enabledByOwner: boolean
-    isOwner: boolean
-    user: User
-    staminaMaxFactor: number
-    token: string
-    emotionHistoryElements: EmotionHistoryElement[]
   }
   export interface Reaction {
     key: string
     src: string
     value: number
-  }
-  export interface Emotion {
-    id: string
-    name: string
-    description: string
-    thumbnailUrl: string
-    stamina: number
   }
   export interface EmotionGroup {
     id: number
@@ -138,28 +26,12 @@ export namespace NicoNama {
     }
     data: EmotionGroupData
   }
-  export interface EmotionResponse {
-    meta: {
-      status: number
-    }
-    data: EmotionData
-  }
-  export interface CommentResponse extends BaseResponse {
-    vpos: number
-    thread: string
-    dateUsec: number
-    mail: string
-    premium: number
-    anonymity: boolean
-    isSystem: boolean
-    command: string
-    commandPrefix: string
-    giftRank: string
-    price: number
-    no: number
-    commentVisible?: boolean
-    screenName: string
-    origin?: string
+  export interface Emotion {
+    id: string
+    name: string
+    description: string
+    thumbnailUrl: string
+    stamina: number
   }
   export interface Id {
     value: string
@@ -294,7 +166,6 @@ export namespace NicoNama {
   export interface Comments {
     value: number
   }
-
   export interface TimeshiftReservations {
     value: number
   }
@@ -367,7 +238,6 @@ export namespace NicoNama {
     seconds: number
     nanos: number
   }
-
   export interface ProgramsList {
     id: Id
     publicStatus: number
@@ -390,5 +260,146 @@ export namespace NicoNama {
   export interface UserBroadcastHistory {
     meta: Meta
     data: BroadcastHistoryData
+  }
+  export interface ChunkEntry {
+    toJson(): RootMessageResponse | CommentEntryJson
+  }
+  export interface CommentEntryJson {
+    meta: Meta
+    message: Message
+  }
+  export interface Meta {
+    id: string
+    at: string
+    origin: Origin
+  }
+
+  export interface DateComponent {
+    date: number
+    date_usec: number
+  }
+
+  export interface Origin {
+    chat: Chat
+  }
+
+  export interface Chat {
+    liveId: string
+  }
+
+  export interface Message {
+    chat: TempChatMessage
+  }
+
+  export interface TempChatMessage {
+    content: string
+    vpos: number
+    hashedUserId: string
+    modifier: any
+  }
+
+  export interface ChatMessage extends DateComponent {
+    content?: string
+    no: number
+    premium: number
+    thread: number
+    user_id: string
+    vpos: number
+    anonymity: number
+    mail?: string
+    score?: number
+    name: string
+  }
+  export interface OperatorMessage extends DateComponent {
+    content?: string
+    link?: string
+    mail?: string
+    name?: string
+  }
+  export const NotificationTypeTable = [
+    'quote',
+    'cruise',
+    'emotion',
+    'ichiba',
+    'programExtended',
+    'rankingIn',
+    'rankingUpdated',
+    'visited',
+  ] as const
+
+  export const AllNotificationTypeTable = ['nicoad', ...NotificationTypeTable] as const
+  export type AllNotificationTypes = (typeof AllNotificationTypeTable)[number]
+  export type NotificationTypes = (typeof NotificationTypeTable)[number]
+
+  export interface NotificationMessage extends DateComponent {
+    type: NotificationTypes
+    message: string
+  }
+
+  export interface GiftMessage extends DateComponent {
+    itemId: string
+    advertiserUserId: string
+    advertiserName: string
+    point: number
+    message: string
+    itemName: string
+    contributionRank: number
+  }
+
+  export interface NicoadMessageV0 extends DateComponent {
+    v0: {
+      latest?: {
+        advertiser?: string
+        point?: number
+        message?: string
+      }
+      ranking?: {
+        advertiser?: string
+        rank?: number
+        message?: string
+        userRank?: number
+      }[]
+      totalPoint?: number
+    }
+  }
+  export interface NicoadMessageV1 extends DateComponent {
+    v1: {
+      totalAdPoint?: number
+      message?: string
+    }
+  }
+
+  export type NicoadMessage = NicoadMessageV0 | NicoadMessageV1
+
+  export interface GameUpdateMessage extends DateComponent {}
+
+  export interface StateMessage extends DateComponent {
+    state: 'ended'
+  }
+
+  export type SignalMessage = 'flushed'
+
+  export type RootMessageResponse =
+    | { chat: ChatMessage }
+    | { operator: OperatorMessage }
+    | { notification: NotificationMessage }
+    | { gift: GiftMessage }
+    | { nicoad: NicoadMessage }
+    | { gameUpdate: GameUpdateMessage }
+    | { state: StateMessage }
+    | { signal: SignalMessage }
+  export interface SystemResponse extends BaseSystemResponse {
+    command: AllNotificationTypes
+  }
+
+  export interface CommentResponse extends BaseResponse {
+    screenName: string
+    anonymity: boolean
+    no?: number
+    mail?: string
+    premium?: number
+    price?: number
+    commentVisible?: boolean
+    origin: RootMessageResponse | CommentEntryJson
   }
 }

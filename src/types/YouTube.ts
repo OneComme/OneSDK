@@ -760,10 +760,15 @@ export namespace YouTube {
   }
   export interface Reaction {
     key: string
+    src?: string
     value: number
   }
   export interface Duration {
     seconds: string
+  }
+  export interface ReactionDataStamp {
+    emoteId: string
+    reactionCount: number
   }
   export interface ReactionData {
     reactionCount: number
@@ -772,7 +777,7 @@ export namespace YouTube {
   export interface ReactionBucket {
     totalReactions: number
     duration: Duration
-    reactionsData: ReactionData[]
+    reactionsData: (ReactionData | ReactionDataStamp)[]
     intensityScore?: number
   }
   export interface EmojiFountainDataEntity {
@@ -955,6 +960,14 @@ export namespace YouTube {
     actions?: Action[]
     frameworkUpdates?: FrameworkUpdates
   }
+  export interface EmojiSrcs {
+    emojiId: string
+    shortcuts: string[]
+    searchTerms: string[]
+    image: Image
+    isCustomEmoji: boolean
+    index: number
+  }
   export interface LiveChatRenderer {
     continuations: any[]
     actions: Action[]
@@ -964,7 +977,7 @@ export namespace YouTube {
     // ticker: Ticker;
     trackingParams: string
     // participantsList: ParticipantsList;
-    // emojis: Emoji2[];
+    emojis?: EmojiSrcs[]
     // clientMessages: ClientMessages;
     viewerName: string
   }

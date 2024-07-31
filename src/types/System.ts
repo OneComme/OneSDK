@@ -1,8 +1,8 @@
 import { BaseResponse } from './BaseResponse'
 
-export type SystemMessageType = 'success' | 'warning' | 'info' | 'error'
+export type SystemMessageType = 'success' | 'warning' | 'info' | 'error' | 'inherit'
 export interface SystemMessage {
-  type: SystemMessageType
+  type?: SystemMessageType
   message: string
   messageId?: string
 }

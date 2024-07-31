@@ -29,7 +29,7 @@ import { TemplateData } from './Template'
 import { UpdateCheckResult } from './Update'
 import { UserNameData, UserStoreData } from './UserData'
 import { GlobalConfig, WordPartyItem } from './WordParty'
-import { TimestampData } from './Timestamp'
+import { TimelineItem, TimestampData } from './Timestamp'
 
 type UnregisterFunction = () => void
 export type SendType =
@@ -264,6 +264,8 @@ export interface Api {
   getAllStockComments(): Promise<Comment[]>
   clearAllStockComments(): Promise<void>
   getAllComments(): Promise<Comment[]>
+  appendTimelineItemFromTalkScript(): Promise<TimelineItem | null>
+  appendEmptyTimelineItem(): Promise<TimelineItem>
 }
 export interface TestCommentOption {
   speech: boolean

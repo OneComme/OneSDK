@@ -1,3 +1,4 @@
+import { NicoNama } from './NicoNama'
 import { ServiceType } from './Service'
 import { Question } from './Survey'
 export interface EmojiLimit {
@@ -88,12 +89,19 @@ export interface BouyomichanConfig {
   hostname: string
   port: number
 }
+export interface CommandViewOptions {
+  speech: boolean
+  useNotifation: boolean
+}
 export interface NicoNamaConfig {
   show184: boolean
   showLineBreakComment: boolean
   outputLineBreakComment: boolean
   speechLineBreakComment: boolean
-  excludeCommands: string[]
+  includeCommands: NicoNama.AllNotificationTypes[]
+  commandOptions: {
+    [key in NicoNama.AllNotificationTypes]: CommandViewOptions
+  }
   anonymousName: string
 }
 export interface ShowroomConfig {
@@ -126,6 +134,7 @@ export interface YouTubeConfig {
   outputAutoModeratedComment: boolean
   showReceivedSponsorshipMessage: boolean
   getSurvey: boolean
+  speechSurveyResult: boolean
 }
 export interface MirrativConfig {
   lowestPriceCoin: number
@@ -138,6 +147,14 @@ export interface TiktokConfig {
 }
 export interface MildomConfig {
   showEnterMessage: boolean
+}
+
+export interface MixchConfig {
+  enterMessageAsComment: boolean
+  commandOptions: {
+    enterMessage: CommandViewOptions
+    share: CommandViewOptions
+  }
 }
 export interface PlatformCommonConfig {
   use: ServiceType[]
@@ -153,6 +170,7 @@ export interface PlatformConfig {
   mirrativ: MirrativConfig
   tiktok: TiktokConfig
   mildom: MildomConfig
+  mixch: MixchConfig
 }
 export interface APIConfig {
   allowHosts: string[]
@@ -376,6 +394,9 @@ export interface TimestampConfig {
   acceptTimestampComment: boolean
   moderatorOnly: boolean
   includeUsername: boolean
+  outputTimelineText: boolean
+  outputFormat: string
+  outputPath: string
 }
 export interface Config {
   speech: SpeechConfig

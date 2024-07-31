@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/prefer-namespace-keyword */
-import { BaseResponse } from './BaseResponse'
+import { BaseResponse, BaseSystemResponse } from './BaseResponse'
 
 export module Mixch {
   export interface Level {
@@ -238,6 +238,9 @@ export module Mixch {
     tab_id: number
     unlocked_level: number
   }
+  export interface SystemResponse extends BaseSystemResponse {
+    command: 'share'
+  }
   export type RootResponse =
     | BroadcastInfo
     | NormalComment
@@ -257,6 +260,7 @@ export module Mixch {
     gift?: GiftResource
     giftData?: any
     price?: number
+    kind: number
     origin: RootResponse
   }
 }
