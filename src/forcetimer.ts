@@ -55,3 +55,11 @@ window.cancelAnimationFrame = (id: number) => {
     window.clearTimeout(t.id)
   }
 }
+const st = window.setTimeout
+;(window as any).setTimeout = function(handler: TimerHandler, timeout = 16, ...args: any[]) {
+  return st(handler, timeout, ...args)
+}
+const si = window.setInterval
+;(window as any).setInterval = function(handler: TimerHandler, timeout = 16, ...args: any[]) {
+  return si(handler, timeout, ...args)
+}
