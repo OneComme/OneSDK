@@ -406,6 +406,29 @@ export module BiliBili {
     text_small: string
     text_large: string
   }
+
+  export interface BaseConfig {
+    hited: boolean
+    list: any
+    version: number
+    ttl: number
+  }
+  export interface GiftConfig {
+    base_config: BaseConfig
+    room_config: GiftResource[]
+  }
+  export interface GlobalConfig {
+    combo_resources: ComboResource[]
+    guard_resources: GuardResource[]
+    // naming_gift: NamingGift
+    // send_disable_msg: SendDisableMsg
+    // gift_protocols: GiftProtocol[]
+  }
+  export interface GiftListResponse {
+    gift_data: GiftData
+    gift_config: GiftConfig
+    global_config: GlobalConfig
+  }
   export interface CommentResponse extends BaseResponse {
     gift?: GiftResource
     guard?: GuardResource

@@ -1,4 +1,3 @@
-import { RunResult } from 'better-sqlite3'
 import { AnalysisResultData, CommentLogFile, SearchFilterProps, SearchProps } from './Analysis'
 import { LoginStates } from './Auth'
 import { BackupFile } from './Backup'
@@ -7,7 +6,7 @@ import { Bookmark } from './Bookmark'
 import { Comment, CommentData, CommentSenderOption, ExtendedComment, ListenerInfo, Reaction } from './Comment'
 import { RecursivePartial } from './Common'
 import { ActiveSurvey, Config, SpeechConfig } from './Config'
-import { BouyomiChanVoiceListResponse, YNCNeoRegistoryData } from './Integrations'
+import { BouyomiChanVoiceListResponse, VoicevoxSpeaker, YNCNeoRegistoryData } from './Integrations'
 import { NewsData } from './News'
 import { OrderItem, OrderStats, UpdatableOrderItemProps } from './Order'
 import { PluginList } from './Plugin'
@@ -20,6 +19,7 @@ import {
   MusicDataParams,
   MusicDataSearchResult,
   RequestItem,
+  RunResult,
   SetList,
   SetListAPIResponse,
   SetListArray,
@@ -35,6 +35,7 @@ type UnregisterFunction = () => void
 export type SendType =
   | 'connected'
   | 'comments'
+  | 'systemComment'
   | 'clear'
   | 'deleted'
   | 'meta'
@@ -54,6 +55,8 @@ export type SendType =
   | 'yt.survey.start'
   | 'yt.survey.update'
   | 'yt.survey.finish'
+  | 'ni.survey.start'
+  | 'ni.survey.finish'
 export type SendSurveyType = 'connected' | 'result' | 'config' | 'reset' | 'result.quiz' | 'result.quiz.correct'
 
 interface WordPartyErrorResponse {
@@ -76,8 +79,6 @@ export interface Api {
   ): UnregisterFunction
   receiveReactions(callback: (reactions: Reaction[]) => void): UnregisterFunction
   receiveDeleteComment(callback: (deleteComment: { id: string; message: string }[]) => void): UnregisterFunction
-  receiveSpeech(callback: (text: string, config: SpeechConfig) => void): UnregisterFunction
-  receiveStopSpeech(callback: () => void): UnregisterFunction
   receivePageError(callback: (error: ServiceError) => void): UnregisterFunction
   receiveConfigUpdate(callback: (config: Config) => void): UnregisterFunction
   receiveUpdateMeta(callback: (id: string, meta: ServiceMeta) => void): UnregisterFunction
@@ -88,7 +89,6 @@ export interface Api {
   receiveUpdateUserDatas(callback: (userData: UserStoreData) => void): UnregisterFunction
   receiveDeleteUserDatas(callback: (ids: string[]) => void): UnregisterFunction
   receiveSurveyResult(callback: (result: SurveyResult) => void): UnregisterFunction
-  receiveBeepSound(callback: (file: string, volume: number) => void): UnregisterFunction
   receiveNotification(callback: (type: string, message: string) => void): UnregisterFunction
   receivePinned(callback: (comment: Comment | null) => void): UnregisterFunction
   receiveBookmark(callback: (bookmark: Bookmark) => void): UnregisterFunction
@@ -169,6 +169,7 @@ export interface Api {
   getLocale(): Promise<string>
   loadWordParty(): void
   stopSpeech(): void
+  getVoicevoxVoiceList(): Promise<VoicevoxSpeaker[]>
   getYNCVoiceList(): Promise<string[]>
   getYNCRegistry(): Promise<YNCNeoRegistoryData | null>
   openDirectorySelectDialog(): Promise<string[] | undefined>

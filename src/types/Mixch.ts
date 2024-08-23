@@ -58,6 +58,23 @@ export module Mixch {
     adbonus: Adbonus
     superfan_rank?: number
   }
+  export interface SuperChat2 {
+    kind: 41
+    user_id: number
+    name: string
+    created: number
+    message_id: string
+    superfan_rank: number
+    body: string
+    profile_image_url: string
+    anonymous: number
+    item_id: number
+    resource_id: number
+    live_session_id: number
+    item_purchase_id: number
+    expire: number
+    count: number
+  }
   export interface SuperChat {
     kind: 42
     user_id: number
@@ -79,7 +96,32 @@ export module Mixch {
     level_goal: number
     superfan_rank?: number
   }
-  export interface Cheer3 {
+  export interface StampChat {
+    kind: 44
+    user_id: number
+    name: string
+    created: number
+    message_id: string
+    superfan_rank: number
+    profile_image_url: string
+    anonymous: number
+    item_id: number
+    resource_id: number
+    live_session_id: number
+    item_purchase_id: number
+    expire: number
+    count: number
+  }
+  export interface Viewer {
+    user_id: number
+    profile_image_url: string
+    is_manager: boolean
+  }
+  export interface ViewerInfo {
+    kind: 13
+    viewers: Viewer[]
+  }
+  export interface Cheer4 {
     kind: 45
     user_id: number
     name: string
@@ -99,7 +141,7 @@ export module Mixch {
     level_goal: number
     superfan_rank?: number
   }
-  export interface Cheer2 {
+  export interface Cheer3 {
     // 画面に出ない系ギフト
     kind: 46
     user_id: number
@@ -116,6 +158,24 @@ export module Mixch {
     count: number
     is_manager?: number // 管理者かモデレーター的なやつ？
     superfan_rank?: number
+  }
+  export interface Cheer2 {
+    kind: 47
+    user_id: number
+    name: string
+    created: number
+    message_id: string
+    superfan_rank: number
+    profile_image_url: string
+    anonymous: number
+    item_id: number
+    resource_id: number
+    live_session_id: number
+    item_purchase_id: number
+    expire: number
+    count: number
+    item_level: number
+    item_duration: number
   }
   export interface Cheer {
     kind: 48
@@ -251,9 +311,13 @@ export module Mixch {
     | Cheer
     | Cheer2
     | Cheer3
+    | Cheer4
     | SuperChat
+    | SuperChat2
     | Box
     | SuperFanInfo
+    | ViewerInfo
+    | StampChat
 
   export interface CommentResponse extends BaseResponse {
     user?: User | null

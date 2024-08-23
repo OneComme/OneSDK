@@ -1,5 +1,5 @@
 import { RGBColor } from './Color'
-import { SoundConfig } from './Config'
+import { SoundConfig, VoicevoxOptions } from './Config'
 export interface ServiceList {
   youtube: 'youtube'
   twicas: 'twicas'
@@ -54,6 +54,7 @@ export interface ServiceOptions {
   voiceVolume?: number
   outputLogs?: boolean
   sound?: Partial<SoundConfig>
+  voicevox?: Partial<VoicevoxOptions>
 }
 export interface ServiceMeta {
   title?: string

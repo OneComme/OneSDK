@@ -51,3 +51,7 @@ export interface SetList {
   created_at: string
   updated_at: string
 }
+export interface RunResult {
+  changes: number
+  lastInsertRowid: number | bigint
+}

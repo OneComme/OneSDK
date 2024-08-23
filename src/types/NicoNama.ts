@@ -261,12 +261,79 @@ export namespace NicoNama {
     meta: Meta
     data: BroadcastHistoryData
   }
-  export interface ChunkEntry {
-    toJson(): RootMessageResponse | CommentEntryJson
+  export interface OperatorComment {
+    content: string
   }
-  export interface CommentEntryJson {
+
+  export interface MarqueDisplay {
+    operatorComment: OperatorComment
+    duration: string
+  }
+
+  export interface MarqueState {
+    display: MarqueDisplay
+  }
+  export interface ModerationAnnouncementState {
+    // todo
+  }
+  export interface ProgramStatusState {
+    state: string // 'Ended'
+  }
+  export interface TrialPanelState {
+    // todo
+  }
+  export interface CommentModeState {
+    // todo
+  }
+  export interface CommentLockState {
+    // todo
+  }
+
+  export interface Jump {
+    content: string // ジャンプ先 URL
+    message: string // ジャンプ時に表示するメッセージ
+  }
+  export interface Redirect {
+    uri: string // リダイレクト先 URL
+    message: string // リダイレクト時に表示するメッセージ
+  }
+  export interface MoveOrderState {
+    // todo
+    jump?: Jump
+    redirect?: Redirect
+  }
+  export interface EnqueteChoice {
+    description: string
+    perMille: number
+  }
+  export interface EnqueteState {
+    question?: string
+    choices?: EnqueteChoice[]
+    status?: 'Result' | 'Poll'
+  }
+  export interface StatisticsState {
+    viewers?: number
+    comments?: number
+    adPoints?: number
+    giftPoints?: number
+  }
+  export interface UnknownState {}
+  export interface StateResponse {
+    state:
+      | { statistics: StatisticsState } // 番組統計
+      | { enquete: EnqueteState } // 旧 /enquete
+      | { moveOrder: MoveOrderState } // 旧 /jump or /redirect
+      | { marquee: MarqueState } // 運営コメントおよび旧 /perm
+      | { commentLock: CommentLockState } // 旧 /commentlock
+      | { commentMode: CommentModeState } // 旧 /commentmode
+      | { trialPanel: TrialPanelState } // 旧 /trialpanel
+      | { programStatus: ProgramStatusState } // 旧 /disconnect相当
+      | { moderationAnnouncement: ModerationAnnouncementState } // モデレータへの指示内容
     meta: Meta
-    message: Message
+  }
+  export type ChunkEntryData = RootMessageResponse | StateResponse | SignalResponse
+  export interface ChunkEntry {
+    toJson(): ChunkEntryData
   }
   export interface Meta {
     id: string
@@ -276,7 +343,7 @@ export namespace NicoNama {
 
   export interface DateComponent {
     date: number
-    date_usec: number
+    dateUsec: number
   }
 
   export interface Origin {
@@ -286,29 +353,22 @@ export namespace NicoNama {
   export interface Chat {
     liveId: string
   }
-
-  export interface Message {
-    chat: TempChatMessage
-  }
-
-  export interface TempChatMessage {
-    content: string
-    vpos: number
+  export interface AnonimityChatMessage {
+    content?: string
     hashedUserId: string
     modifier: any
-  }
-
-  export interface ChatMessage extends DateComponent {
-    content?: string
     no: number
-    premium: number
-    thread: number
-    user_id: string
     vpos: number
-    anonymity: number
-    mail?: string
-    score?: number
+    accountStatus?: 'Premium' | 'Standard'
+  }
+  export interface UserChatMessage {
+    content: string
     name: string
+    vpos: number
+    accountStatus: string
+    rawUserId: string
+    modifier: any
+    no: number
   }
   export interface OperatorMessage extends DateComponent {
     content?: string
@@ -327,39 +387,69 @@ export namespace NicoNama {
     'visited',
   ] as const
 
-  export const AllNotificationTypeTable = ['nicoad', ...NotificationTypeTable] as const
+  export const AllNotificationTypeTable = ['nicoad', ...NotificationTypeTable, 'disconnect', 'survey'] as const
   export type AllNotificationTypes = (typeof AllNotificationTypeTable)[number]
   export type NotificationTypes = (typeof NotificationTypeTable)[number]
-
-  export interface NotificationMessage extends DateComponent {
-    type: NotificationTypes
-    message: string
+  export type IchibaMessage = {
+    ichiba: string
   }
+  export type QuoteMessage = {
+    quote: string
+  }
+  export type CruiseMessage = {
+    cruise: string
+  }
+  export type ProgramExtendedMessage = {
+    programExtended: string
+  }
+  export type RankingInMessage = {
+    rankingIn: string
+  }
+  export type RankingUpdateMessage = {
+    rankingUpdated: string
+  }
+  export type EmotionMessage = {
+    emotion: any
+  }
+  export type VisitedMessage = {
+    visited: string
+  }
+
+  export type NotificationMessage =
+    | VisitedMessage
+    | IchibaMessage
+    | QuoteMessage
+    | CruiseMessage
+    | ProgramExtendedMessage
+    | RankingInMessage
+    | RankingUpdateMessage
+    | EmotionMessage
+    | VisitedMessage
 
   export interface GiftMessage extends DateComponent {
     itemId: string
-    advertiserUserId: string
+    advertiserUserId?: number
     advertiserName: string
-    point: number
+    point: string
     message: string
     itemName: string
-    contributionRank: number
+    contributionRank?: number
   }
 
   export interface NicoadMessageV0 extends DateComponent {
     v0: {
       latest?: {
-        advertiser?: string
-        point?: number
+        advertiser: string
+        point: number
         message?: string
       }
       ranking?: {
-        advertiser?: string
-        rank?: number
+        advertiser: string
+        rank: number
         message?: string
         userRank?: number
       }[]
-      totalPoint?: number
+      totalPoint: number
     }
   }
   export interface NicoadMessageV1 extends DateComponent {
@@ -367,6 +457,26 @@ export namespace NicoNama {
       totalAdPoint?: number
       message?: string
     }
+  }
+  export interface NicopediaArticle {
+    pageUrl: string
+    exists: boolean
+  }
+
+  export interface SupplierIcons {
+    uri50x50: string
+    uri150x150: string
+  }
+
+  export interface Supplier {
+    name: string
+    pageUrl: string
+    introduction: string
+    nicopediaArticle: NicopediaArticle
+    programProviderId: string
+    icons: SupplierIcons
+    level: number
+    accountType: string
   }
 
   export type NicoadMessage = NicoadMessageV0 | NicoadMessageV1
@@ -377,17 +487,30 @@ export namespace NicoNama {
     state: 'ended'
   }
 
-  export type SignalMessage = 'flushed'
+  export interface ParsedSystemResponse {
+    type: 'system'
+    data: SystemResponse
+  }
+  export interface ParsedCommentResponse {
+    type: 'comment'
+    data: CommentResponse
+  }
 
-  export type RootMessageResponse =
-    | { chat: ChatMessage }
+  export type SignalMessage = 'flushed'
+  export type ChatMessageType = UserChatMessage | AnonimityChatMessage
+  export type RootMessageType =
+    | { chat: ChatMessageType }
     | { operator: OperatorMessage }
-    | { notification: NotificationMessage }
+    | { simpleNotification: NotificationMessage }
     | { gift: GiftMessage }
     | { nicoad: NicoadMessage }
     | { gameUpdate: GameUpdateMessage }
     | { state: StateMessage }
-    | { signal: SignalMessage }
+  export type RootMessageResponse = {
+    message: RootMessageType
+    meta: Meta
+  }
+  export type SignalResponse = { signal: SignalMessage }
   export interface SystemResponse extends BaseSystemResponse {
     command: AllNotificationTypes
   }
@@ -396,10 +519,9 @@ export namespace NicoNama {
     screenName: string
     anonymity: boolean
     no?: number
-    mail?: string
-    premium?: number
+    premium?: boolean
     price?: number
     commentVisible?: boolean
-    origin: RootMessageResponse | CommentEntryJson
+    origin: RootMessageResponse | StateResponse | SignalResponse
   }
 }

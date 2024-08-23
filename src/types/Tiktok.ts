@@ -384,6 +384,7 @@ export module Tiktok {
     screenName: string
     price?: number
     gift?: GiftData
+    giftId?: string
     giftType?: GiftType
     origin: any
   }

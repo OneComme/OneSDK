@@ -122,6 +122,7 @@ export interface Reaction {
   key: string
   src?: string
   value: number
+  scale?: number
 }
 export type Comment =
   | YouTubeComment

@@ -21,6 +21,9 @@ export interface SpeechConfig {
   // @deprecated // plz use speechTemplate
   speechName: boolean
   dictionary: [string, string][]
+  useInternalDictionary: boolean
+  useCloudDictionary: boolean
+  cloudDictionaryPaths: string[]
   commentLengthLimit: boolean
   commentLength: number
   nameLengthLimit: boolean
@@ -89,9 +92,33 @@ export interface BouyomichanConfig {
   hostname: string
   port: number
 }
+
+export interface VoicevoxOptions {
+  volumeScale: number
+  pitchScale: number
+  speedScale: number
+  intonationScale: number
+  pauseLengthScale: number
+  speaker: number
+  enableInterrogativeUpspeak: boolean
+}
+export interface VoicevoxConfig {
+  enabled: boolean
+  autoLaunch: boolean
+  autoClose: boolean
+  exePath: string
+  hostname: string
+  port: number
+  deviceId: string
+  limitQueue: number
+  autoSpeed: boolean
+  autoSpeedRate: number
+  autoSpeedLength: number
+  options: VoicevoxOptions
+}
 export interface CommandViewOptions {
   speech: boolean
-  useNotifation: boolean
+  useNotifation?: boolean
 }
 export interface NicoNamaConfig {
   show184: boolean
@@ -178,6 +205,7 @@ export interface APIConfig {
 export interface IntegrationConfig {
   bouyomichan: BouyomichanConfig
   yncNeo: YNCNeoConfig
+  voicevox: VoicevoxConfig
   plugins: PluginConfig
 }
 export interface SoundConfig {
@@ -185,6 +213,7 @@ export interface SoundConfig {
   file: string
   volume: number
   excludeUser: string
+  deviceId: string
   newCommentSoundEnabled: boolean
   newCommentSoundFile: string
   newCommentSoundVolume: number
@@ -287,6 +316,8 @@ export interface UICommentConfig {
   imgSize: number
   giftImgSize: number
   emoteImgSize: number
+  floatRate: number
+  stopScrollingOnHover: boolean
 }
 export interface UIViewerConfig {
   chatView: boolean
