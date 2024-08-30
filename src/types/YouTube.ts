@@ -968,10 +968,18 @@ export namespace YouTube {
     isCustomEmoji: boolean
     index: number
   }
+
+  export interface LiveChatMessageInputRenderer {
+    authorName: AuthorName
+    authorPhoto: AuthorPhoto
+  }
+  export interface ActionPanel {
+    liveChatMessageInputRenderer: LiveChatMessageInputRenderer
+  }
   export interface LiveChatRenderer {
     continuations: any[]
     actions: Action[]
-    // actionPanel: ActionPanel;
+    actionPanel: ActionPanel
     // itemList: ItemList;
     header: any
     // ticker: Ticker;

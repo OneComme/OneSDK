@@ -15,7 +15,6 @@ import { Mirrativ } from './Mirrativ'
 import { Tiktok } from './Tiktok'
 import { Streamlabs } from './Streamlabs'
 import { SystemCommentResponse } from './System'
-import { Mildom } from './Mildom'
 import { Kick } from './Kick'
 import { VTips } from './VTips'
 
@@ -28,7 +27,6 @@ export type CommentData =
   | BiliBili.CommentResponse
   | Mixch.CommentResponse
   | Mirrativ.CommentResponse
-  | Mildom.CommentResponse
   | Kick.CommentResponse
   | Doneru.CommentResponse
   | Tiktok.CommentResponse
@@ -102,10 +100,6 @@ export interface TiktokComment extends BaseComment {
   service: ServiceList['tiktok']
   data: Tiktok.CommentResponse
 }
-export interface MildomComment extends BaseComment {
-  service: ServiceList['mildom']
-  data: Mildom.CommentResponse
-}
 export interface KickComment extends BaseComment {
   service: ServiceList['kick']
   data: Kick.CommentResponse
@@ -140,7 +134,6 @@ export type Comment =
   | KickComment
   | ExternalComment
   | SystemComment
-  | MildomComment
   | VTipsComment
 
 export interface CommentSenderOption {

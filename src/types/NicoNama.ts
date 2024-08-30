@@ -1,4 +1,5 @@
 import { BaseResponse, BaseSystemResponse } from './BaseResponse'
+import { Colors } from './Comment'
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace NicoNama {
@@ -523,5 +524,7 @@ export namespace NicoNama {
     price?: number
     commentVisible?: boolean
     origin: RootMessageResponse | StateResponse | SignalResponse
+    colors?: Colors
+    tier?: number
   }
 }

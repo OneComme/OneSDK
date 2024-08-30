@@ -127,13 +127,13 @@ export module Streamlabs {
     channelId: string
   }
   export interface Merch {
-    type: undefined
+    type: any
     priority: number
     _id: string
     from: string
     to: To
     message: string
-    payload: any // unknown
+    payload: unknown
     imageHref: string
     duration?: any
     isTest: boolean

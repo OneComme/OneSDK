@@ -57,6 +57,7 @@ export type SendType =
   | 'yt.survey.finish'
   | 'ni.survey.start'
   | 'ni.survey.finish'
+  | 'toast'
 export type SendSurveyType = 'connected' | 'result' | 'config' | 'reset' | 'result.quiz' | 'result.quiz.correct'
 
 interface WordPartyErrorResponse {

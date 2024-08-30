@@ -1,4 +1,4 @@
-import { SystemMessageType } from './System'
+import { SystemMessage } from './System'
 
 export interface BaseBadge {
   url: string
@@ -36,10 +36,6 @@ export interface BaseResponse {
   meta?: CommentMeta
 }
 
-export interface BaseSystemResponse {
+export interface BaseSystemResponse extends SystemMessage {
   id: string
-  isGift?: boolean
-  isFreeGift?: boolean
-  type?: SystemMessageType
-  message: string
 }

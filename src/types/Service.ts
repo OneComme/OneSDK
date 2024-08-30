@@ -13,7 +13,6 @@ export interface ServiceList {
   doneru: 'doneru'
   tiktok: 'tiktok'
   streamlabs: 'streamlabs'
-  mildom: 'mildom'
   kick: 'kick'
   vtips: 'vtips'
   external: 'external'

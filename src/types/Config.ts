@@ -1,6 +1,7 @@
 import { NicoNama } from './NicoNama'
 import { ServiceType } from './Service'
 import { Question } from './Survey'
+import { SystemMessageType } from './System'
 export interface EmojiLimit {
   enabled: boolean
   count: number
@@ -30,6 +31,7 @@ export interface SpeechConfig {
   nameLength: number
   excludeUser: string
   speechFormat: string
+  speechFormatForSystemMessage: string
   useSpeechFormatForGift: boolean
   speechFormatForGift: string
   useSpeechFormatForChannelPoints: boolean
@@ -41,6 +43,11 @@ export interface SpeechConfig {
   speechSystemMessage: boolean
 }
 export type NicknameAcceptType = 'membership' | 'channelPoint' | 'subscriber' | 'nonAnonymous' | 'anonymous'
+
+export type SystemCommentConfig = {
+  overwriteUsername: boolean
+  username: string
+}
 export interface CommentConfig {
   nameLengthLimit: boolean
   nameLength: number
@@ -57,6 +64,7 @@ export interface CommentConfig {
   wordReplace: [string, string][]
   exportFreeGift: boolean
   exportExcludeUser: string
+  systemComment: SystemCommentConfig
 }
 export type TraslatedSpeechType = 'translated' | 'body' | 'both'
 export interface OSCTargets {
@@ -117,15 +125,17 @@ export interface VoicevoxConfig {
   options: VoicevoxOptions
 }
 export interface CommandViewOptions {
+  enabled: boolean
   speech: boolean
   useNotifation?: boolean
+  asComment?: boolean
+  type?: SystemMessageType
 }
 export interface NicoNamaConfig {
   show184: boolean
   showLineBreakComment: boolean
   outputLineBreakComment: boolean
   speechLineBreakComment: boolean
-  includeCommands: NicoNama.AllNotificationTypes[]
   commandOptions: {
     [key in NicoNama.AllNotificationTypes]: CommandViewOptions
   }
@@ -161,6 +171,7 @@ export interface YouTubeConfig {
   outputAutoModeratedComment: boolean
   showReceivedSponsorshipMessage: boolean
   getSurvey: boolean
+  outputSurvey: boolean
   speechSurveyResult: boolean
 }
 export interface MirrativConfig {
@@ -172,15 +183,12 @@ export interface TiktokConfig {
   shareAsFreeGiftComment: boolean
   likeAsFreeGiftComment: boolean
 }
-export interface MildomConfig {
-  showEnterMessage: boolean
-}
 
 export interface MixchConfig {
-  enterMessageAsComment: boolean
   commandOptions: {
     enterMessage: CommandViewOptions
     share: CommandViewOptions
+    fan: CommandViewOptions
   }
 }
 export interface PlatformCommonConfig {
@@ -196,7 +204,6 @@ export interface PlatformConfig {
   twitch: TwitchConfig
   mirrativ: MirrativConfig
   tiktok: TiktokConfig
-  mildom: MildomConfig
   mixch: MixchConfig
 }
 export interface APIConfig {
