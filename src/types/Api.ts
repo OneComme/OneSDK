@@ -32,6 +32,7 @@ import { GlobalConfig, WordPartyItem } from './WordParty'
 import { TimelineItem, TimestampData } from './Timestamp'
 
 type UnregisterFunction = () => void
+
 export type SendType =
   | 'connected'
   | 'comments'
@@ -60,6 +61,8 @@ export type SendType =
   | 'toast'
 export type SendSurveyType = 'connected' | 'result' | 'config' | 'reset' | 'result.quiz' | 'result.quiz.correct'
 
+// @deprecated cannot use 'all'
+export type DeprecatedSendType = (SendType | 'all')[] | null
 interface WordPartyErrorResponse {
   status: 'error'
   dir: string

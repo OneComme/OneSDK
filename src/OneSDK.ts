@@ -1,5 +1,5 @@
 import { PERMISSION_TEMPLETE_TYPE, PERMISSIONS } from './permissions';
-import { SendType } from './types/Api';
+import { DeprecatedSendType, SendType } from './types/Api';
 
 import axios, { AxiosRequestConfig } from 'axios'
 import 'hacktimer'
@@ -92,7 +92,7 @@ export class OneSDK {
     this._config.host = this.getStyleVariable<string>('--one-sdk-host', this._config.host)
     this._config.pathname = this.getStyleVariable<string>('--one-sdk-pathname', this._config.pathname)
     this._config.port = this.getStyleVariable<number>('--one-sdk-port', this._config.port, parseInt)
-    this._config.permissions = this.getStyleVariable<string[] | null>('--one-sdk-permissions', this._config.permissions, this._splitValues) as (SendType | 'all')[] | null
+    this._config.permissions = this.getStyleVariable<string[] | null>('--one-sdk-permissions', this._config.permissions, this._splitValues) as (SendType[] | DeprecatedSendType)
     
     this._config.includes = this.getStyleVariable<string[] | null>('--one-sdk-includes', this._config.includes, this._splitValues)
     this._config.excludes = this.getStyleVariable<string[] | null>('--one-sdk-excludes', this._config.excludes, this._splitValues)
@@ -325,6 +325,9 @@ export class OneSDK {
     await this.ready()
     if (['local', 'ws'].includes(this._config.protocol)) {
       const permissions = this._config.permissions || ['all']
+      if (permissions.includes('all')) {
+        console.warn('Next version required p(permissions) options.')
+      }
       const socket = new WebSocket(`ws://${this._config.host}:${this._config.port}/sub?p=${permissions.join(',')}`);
       socket.addEventListener('open', (e) => {
         this._connected = true

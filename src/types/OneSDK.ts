@@ -5,7 +5,7 @@ import { OrderItem } from './Order'
 import { Service, ServiceMeta } from './Service'
 import { RequestItem, SetListAPIResponse } from './Setlist'
 import { Comment } from './Comment'
-import { SendType } from './Api';
+import { DeprecatedSendType, SendType } from './Api';
 import { WordPartyExecParams } from './WordParty';
 import { YouTube } from './YouTube';
 export type SubscribeAction = 'comments' | 'meta'
@@ -33,7 +33,7 @@ export interface OneSDKConfig {
   includeNames: string[] | null
   excludeNames: string[] | null
   lifeTime: number
-  permissions: null | (SendType | 'all')[] 
+  permissions: SendType[] | DeprecatedSendType
 }
 type SendActions = {
   [key in SendType]: any
